@@ -14,16 +14,16 @@ class SideNavBar extends React.Component {
                 <span className="pcoded-mtext">Dashboard</span>
               </Link>
             </li>
-            {localStorage.getItem('userCreation')== 'true' ?
+            {/* {localStorage.getItem('userCreation')== 'true' ?
             <li className=" pcoded-hasmenu">
               <a href="javascript:void(0)">
                 <span className="pcoded-micon">
                   <i className="icofont icofont-contact-add"></i>
                 </span>
-                <span className="pcoded-mtext">User Creation </span>
+                <span className="pcoded-mtext">Users</span>
               </a>
               <ul className="pcoded-submenu">
-                {/* <li className=" ">
+                <li className=" ">
                   <Link to="/users-hoAdmin">
                     <span className="pcoded">HO Admin</span>
                   </Link>
@@ -32,7 +32,7 @@ class SideNavBar extends React.Component {
                   <Link to="/users-zonal">
                     <span className="pcoded">Zonal Admin</span>
                   </Link>
-                </li>  */}
+                </li> 
             {localStorage.getItem('Sellerview')== 'true' ?
 
                 <li className=" ">
@@ -63,18 +63,11 @@ class SideNavBar extends React.Component {
                 </li>:null}
               </ul>
             </li>
-            :null}
+            :null} */}
              
               
             <div className="pcoded-navigatio-lavel">Master</div>
-            {/* <li className=" ">
-              <Link to="/home-master">
-                <span className="pcoded-micon">
-                  <i className="icofont icofont-home"></i>
-                </span>
-                <span className="pcoded-mtext">Home Master</span>
-              </Link>
-            </li> */}
+{/*       
             {localStorage.getItem("HomeScreen") == 'true' ? 
 
               <li className=" pcoded-hasmenu">
@@ -100,26 +93,26 @@ class SideNavBar extends React.Component {
                       <span className="pcoded">New Arrival</span>
                     </Link>
                   </li>:null}
-                  {/* <li className=" ">
+                  <li className=" ">
                   <Link to="/banners">
                     <span className="pcoded">Banners</span>
                   </Link>
-                </li> */}
-                {/* <li className=" ">
+                </li>
+                <li className=" ">
                   <Link to="/home-categories">
                     <span className="pcoded">Top Categories</span>
                   </Link>
-                </li> */}
-                {/* {localStorage.getItem('role')== 'admin' ?
+                </li>
+                {localStorage.getItem('role')== 'admin' ?
                   <li className=" ">
                     <Link to="/order_homescreen">
                       <span className="pcoded">Order Of Home Screen</span>
                     </Link>
-                  </li>:null} */}
+                  </li>:null}
                 </ul>
               </li>
-          :null}
-        {localStorage.getItem('Order')=='true'?
+          :null} */}
+        {/* {localStorage.getItem('Order')=='true'?
             <li className=" pcoded-hasmenu">
               <a href="javascript:void(0)">
                 <span className="pcoded-micon">
@@ -155,8 +148,8 @@ class SideNavBar extends React.Component {
                 </li>
               </ul>
             </li>
-               :null}
-          {localStorage.getItem('PaymentStatus')=='true'?
+               :null} */}
+          {/* {localStorage.getItem('PaymentStatus')=='true'?
 
             <li className=" pcoded-hasmenu">
               <a href="javascript:void(0)">
@@ -179,9 +172,9 @@ class SideNavBar extends React.Component {
                 </li>
               </ul>
             </li>
-            :null}
+            :null} */}
 
-            {localStorage.getItem("Category") == 'true' ? 
+            {/* {localStorage.getItem("Category") == 'true' ? 
               
                 <li className=" ">
                   <Link to="/category">
@@ -192,8 +185,8 @@ class SideNavBar extends React.Component {
                   </Link>
                 </li>
                 :null
-            }
-               {localStorage.getItem("kyc") === 'true' ? 
+            } */}
+               {/* {localStorage.getItem("kyc") === 'true' ? 
 
                 <li className=" pcoded-hasmenu">
                 <a href="javascript:void(0)">
@@ -229,19 +222,12 @@ class SideNavBar extends React.Component {
 
 
 
-            // <li className="">
-            //   <Link to="/customer_kyc">
-            //     <span className="pcoded-micon">
-            //       <i className="f-18 icofont icofont-ebook"></i>
-            //     </span>
-            //     <span className="pcoded-mtext">Customer KYC</span>
-            //   </Link>
-            // </li>
-            :null}
+        
+            :null} */}
 
 
 
-{localStorage.getItem("seller_customer") === 'true' ? 
+{/* {localStorage.getItem("seller_customer") === 'true' ? 
             <li className=" pcoded-hasmenu">
               <a href="javascript:void(0)">
               <span className="pcoded-micon">
@@ -265,7 +251,7 @@ class SideNavBar extends React.Component {
                 
               </ul>
             </li>
-               :null}
+               :null} */}
 
                 {/* {localStorage.getItem("seller_customer") === 'true' ? 
             <li className="">
@@ -277,7 +263,7 @@ class SideNavBar extends React.Component {
               </Link>
             </li>
             :null} */}
-               {localStorage.getItem("beat") === 'true' ? 
+               {/* {localStorage.getItem("beat") === 'true' ? 
             <li className="">
               <Link to="/beat_list">
                 <span className="pcoded-micon">
@@ -296,7 +282,7 @@ class SideNavBar extends React.Component {
                 <span className="pcoded-mtext">Salesman </span>
               </Link>
             </li>
-            :null}
+            :null} */}
 {/* 
             {localStorage.getItem("InventoryUpdate") == 'true' ? 
                 <li className=" ">
@@ -310,7 +296,7 @@ class SideNavBar extends React.Component {
                  :null
                 } */}
            
-            {localStorage.getItem("CancellationReason") == 'true' ? 
+            {/* {localStorage.getItem("CancellationReason") == 'true' ? 
            
                 <li className=" ">
                   <Link to="/cancellation-resaon">
@@ -320,7 +306,7 @@ class SideNavBar extends React.Component {
                     <span className="pcoded-mtext">Cancellation Reason </span>
                   </Link>
                 </li>
-                :null}
+                :null} */}
         {localStorage.getItem("SellerProduct") == 'true' ? 
 
                 <li className=" ">
@@ -365,7 +351,7 @@ class SideNavBar extends React.Component {
             </li>
             :null}
 
-           {localStorage.getItem('SellerInvoice')=='true'?
+           {/* {localStorage.getItem('SellerInvoice')=='true'?
 
               <li className="">
                  <Link to="/seller/invoice">
@@ -375,7 +361,7 @@ class SideNavBar extends React.Component {
                       <span className="pcoded-mtext">Seller Invoice</span>
                  </Link>
               </li>
-            :null}
+            :null} */}
 
            {localStorage.getItem('SellerPincode')=='true'?
 
@@ -397,7 +383,7 @@ class SideNavBar extends React.Component {
                 <span className="pcoded-mtext">Seller Product</span>
               </Link>
             </li> */}
-      {localStorage.getItem('PaymentMethod')=='true'?
+      {/* {localStorage.getItem('PaymentMethod')=='true'?
 
             <li className=" ">
               <Link to="/payment">
@@ -418,7 +404,7 @@ class SideNavBar extends React.Component {
                 <span className="pcoded-mtext">Payment Settings</span>
               </Link>
             </li>
-            :null}
+            :null} */}
             {/* {localStorage.getItem('role')==="admin"?
            <li className=" ">
               <Link to="/role">
@@ -464,7 +450,7 @@ class SideNavBar extends React.Component {
             </li>             
             
             :null} */}
-             {localStorage.getItem("CouponMaster") == "true" ? 
+             {/* {localStorage.getItem("CouponMaster") == "true" ? 
                <li className=" ">
                 <Link to="/coupon-master">
                   <span className="pcoded-micon">
@@ -473,7 +459,7 @@ class SideNavBar extends React.Component {
                   <span className="pcoded-mtext">Coupon Master</span>
                 </Link>
               </li>
-             : null}
+             : null} */}
 
 
                {/* {localStorage.getItem("role") === "admin" ? (
@@ -488,7 +474,7 @@ class SideNavBar extends React.Component {
                 
               </li>
             ) : null} */}
-       {localStorage.getItem("MediaMaster") == "true" ? 
+       {/* {localStorage.getItem("MediaMaster") == "true" ? 
                <li className=" pcoded-hasmenu">
                 <a href="javascript:void(0)">
                   <span className="pcoded-micon">
@@ -525,9 +511,9 @@ class SideNavBar extends React.Component {
                 
                 </ul>
               </li>
-          :null}
+          :null} */}
 
-
+{/* 
 {localStorage.getItem("Notification") == "true" ? 
               <li className=" pcoded-hasmenu">
                 <a href="javascript:void(0)">
@@ -542,20 +528,11 @@ class SideNavBar extends React.Component {
                       <span className="pcoded">Template List</span>
                     </Link>
                   </li>
-                  {/* <li className=" ">
-                    <Link to="/notification/type-list">
-                      <span className="pcoded">Notification Type List</span>
-                    </Link>
-                  </li> */}
-                  {/* <li className=" ">
-                    <Link to="/notification-customer">
-                      <span className="pcoded">Customer</span>
-                    </Link>
-                  </li> */}
+                 
                 </ul>
               </li>
-:null}
-{localStorage.getItem("Delivery") == "true" ? 
+:null} */}
+{/* {localStorage.getItem("Delivery") == "true" ? 
 
          <li className=" pcoded-hasmenu">
               <a href="javascript:void(0)">
@@ -575,11 +552,7 @@ class SideNavBar extends React.Component {
                     <span className="pcoded">Completed</span>
                   </Link>
                 </li> 
-                 {/* <li className=" ">
-                  <Link to="/delivery-delayed">
-                    <span className="pcoded">Delayed Delivery</span>
-                  </Link>
-                </li>  */}
+               
                 <li className=" ">
                   <Link to="/delivery-boy-list">
                     <span className="pcoded">Delivery Person List</span>
@@ -593,15 +566,10 @@ class SideNavBar extends React.Component {
                 </li>
                 :null}
 
-                {/* <li className=" ">
-                  <Link to="/delivery_slots">
-                    <span className="pcoded">Delivery Slots List</span>
-                  </Link>
-                </li> */}
           </ul> 
-            </li> :null}
+            </li> :null} */}
            
-            {localStorage.getItem("Reports") == 'true' 
+            {/* {localStorage.getItem("Reports") == 'true' 
              ? (
               <li className=" pcoded-hasmenu">
                 <a href="javascript:void(0)">
@@ -616,70 +584,68 @@ class SideNavBar extends React.Component {
                     <span className="pcoded">Coupon Usage Report</span>
                   </Link>
                 </li>  
-                  {/* <li className=" ">
+                  <li className=" ">
                   <Link to="/seller-pin-code-mapping-report">
                     <span className="pcoded">
                       Seller Pin Code Mapping Report
                     </span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/price-upload">
                     <span className="pcoded">Price Upload</span>
                   </Link>
                 </li>
-              */}
+             
                   <li className=" ">
                     <Link to="/Sales_Report">
                       <span className="pcoded">Sales Report</span>
                     </Link>
                   </li>
-                  {/*}
-                <li className=" ">
-                </li> */}
-                  {/* <li className=" ">
+                  
+                  <li className=" ">
                   <Link to="/order-cancellation-analysis">
                     <span className="pcoded">Order Cancellation Analysis</span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/seller-performance-reports">
                     <span className="pcoded">Seller Performance Reports</span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/offender-report">
                     <span className="pcoded">Offender Report</span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/profitability-report-seller-wise">
                     <span className="pcoded">
                       Profitability Report -seller wise
                     </span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/cod-prepaid-order">
                     <span className="pcoded">COD Postpaid Order</span>
                   </Link>
                 </li> 
-                */}
-                  {/* <li className=" ">
+               
+                  <li className=" ">
                   <Link to="/sales-register">
                     <span className="pcoded">Sales Register</span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/order-register">
                     <span className="pcoded">Order </span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/customer-report">
                     <span className="pcoded">Customer Report</span>
                   </Link>
-                </li> */}
+                </li>
 
                   <li className=" ">
                     <Link to="/daily-payment-register">
@@ -705,47 +671,26 @@ class SideNavBar extends React.Component {
                     </Link>
                   </li>
 
-                  {/* <li className=" ">
+                  <li className=" ">
                   <Link to="/product-master-upload">
                     <span className="pcoded">Product Master Upload</span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/seller-upload">
                     <span className="pcoded">Seller Details</span>
                   </Link>
-                </li> */}
-                  {/* <li className=" ">
+                </li>
+                  <li className=" ">
                   <Link to="/consumer-feedback-report">
                     <span className="pcoded">Consumer Feedback Report</span>
                   </Link>
                 </li>
-                 */}
-                  {/* <li className=" ">
-                  <Link to="/exceptional-alert-report ">
-                    <span className="pcoded">Exceptional Alert Report </span>
-                  </Link>
-                </li>
-                <li className=" ">
-                  <Link to="/order-fill-rate-report">
-                    <span className="pcoded">Order Fill Rate Report</span>
-                  </Link>
-                </li>
-                <li className=" ">
-                  <Link to="/seller-wise-below-re-order-level">
-                    <span className="pcoded">
-                      Seller Wise Below Re-order level
-                    </span>
-                  </Link>
-                </li>{" "}
-                <li className=" ">
-                  <Link to="/order-fill-time-report">
-                    <span className="pcoded">Order Fill Time Report</span>
-                  </Link>
-                </li>*/}
+                
+                
                 </ul>
               </li>
-            ) : null}
+            ) : null} */}
 
             {/* {localStorage.getItem("role") === "admin" ? (
               <li className=" pcoded-hasmenu">
@@ -790,7 +735,7 @@ class SideNavBar extends React.Component {
                  </Link>
                </li> :null}
                
-                <li className=" ">
+                {/* <li className=" ">
                   <Link to="/State">
                     <span className="pcoded">State</span>
                   </Link>
@@ -804,11 +749,11 @@ class SideNavBar extends React.Component {
                   <Link to="/area">
                     <span className="pcoded">Area /Pincode</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </li>
             :null}
-            {localStorage.getItem('role')==='admin'?
+            {/* {localStorage.getItem('role')==='admin'?
             <li className=" pcoded-hasmenu">
               <Link href="javascript:void(0)" >
                 <span className="pcoded-micon">
@@ -865,9 +810,9 @@ class SideNavBar extends React.Component {
                 </li>
               </ul>
             </li>
-            :null}
+            :null} */}
 
-{localStorage.getItem('UserMaster')=='true'?
+{/* {localStorage.getItem('UserMaster')=='true'?
 
 <li className=" pcoded-hasmenu">
   <Link href="javascript:void(0)" >
@@ -901,29 +846,20 @@ class SideNavBar extends React.Component {
       </Link>
     </li>
    
-    {/* <li className=" ">
-      <Link to="/user_policy/assign">
-        <span className="pcoded">d</span>
-      </Link>
-    </li>
-    <li className=" ">
-      <Link to="">
-        <span className="pcoded">e</span>
-      </Link>
-    </li> */}
+   
   </ul>
 </li>
-:null}
+:null} */}
           </ul>
 
-          {localStorage.getItem("Settings") == "true" ? 
+          {/* {localStorage.getItem("Settings") == "true" ? 
 
             <div className="pcoded-navigatio-lavel">Settings</div>
 
-           : null}
+           : null} */}
 
             <ul className="pcoded-item pcoded-left-item">
-            {localStorage.getItem("Terms") == "true" ? 
+            {/* {localStorage.getItem("Terms") == "true" ? 
 
               <li className="">
                 <Link to="/terms">
@@ -933,17 +869,9 @@ class SideNavBar extends React.Component {
                   <span className="pcoded-mtext">Terms & conditions</span>
                 </Link>
               </li>
-              :null}
-              {/* 
-            <li className="">
-              <Link to="/refund-policy">
-                <span className="pcoded-micon">
-                  <i className="feather icon-refresh-ccw"></i>
-                </span>
-                <span className="pcoded-mtext">Refund Policy</span>
-              </Link>
-            </li> */}
-                        {localStorage.getItem("Privacy") == "true" ? 
+              :null} */}
+           
+                        {/* {localStorage.getItem("Privacy") == "true" ? 
 
               <li className="">
                 <Link to="/privacy-policy">
@@ -973,7 +901,7 @@ class SideNavBar extends React.Component {
                   <span className="pcoded-mtext">Contact Us</span>
                 </Link>
               </li>
-               :null}
+               :null} */}
             </ul>
         
         </div>

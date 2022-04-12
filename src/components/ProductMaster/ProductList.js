@@ -313,7 +313,7 @@ class ProductList extends React.Component {
         },
       },
       {
-        name: "short_product_description",
+        name: "shortDescription",
         label: "Short Desc.",
         options: {
           filter: true,
@@ -321,7 +321,7 @@ class ProductList extends React.Component {
         },
       },
       {
-        name: "description",
+        name: "longDescription",
         label: "Long Desc.",
         options: {
           filter: true,
@@ -449,6 +449,8 @@ class ProductList extends React.Component {
         },
       },
     ];
+
+
     const columns = [
       {
         name: "id",
@@ -521,7 +523,7 @@ class ProductList extends React.Component {
     },
       
       {
-        name: "short_product_description",
+        name: "shortDescription",
         label: "Short Desc.",
         options: {
           filter: true,
@@ -529,7 +531,7 @@ class ProductList extends React.Component {
         },
       },
       {
-        name: "description",
+        name: "longDescription",
         label: "Long Desc.",
         options: {
           filter: true,
@@ -582,71 +584,71 @@ class ProductList extends React.Component {
       },
       {
         name: "UOMs",
-        label: "UOM1",
+        label: "UOM 1",
         options: {
           filter: true,
           sort: true,
           customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[0].name?UOMs[0].name:"-"
+            return UOMs[0].name?UOMs[0]?.name:"-"
           },
         },
       },
-      {
-        name: "UOMs",
-        label: "UOM2",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[1].name?UOMs[1].name:"-"
-          },
-        },
-      },
-      {
-        name: "UOMs",
-        label: "UOM3",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[2].name?UOMs[2].name:"-"
-          },
-        },
-      },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM 2",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[1].name?UOMs[1]?.name:"-"
+      //     },
+      //   },
+      // },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM 3",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[2].name?UOMs[2].name:"-"
+      //     },
+      //   },
+      // },
   
-      {
-        name: "UOMs",
-        label: "UOM1 Conversion",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[0].name && UOMs[0].ProductUOM ?UOMs[0].ProductUOM.conversionRate:"-"
-          },
-        },
-      },
-      {
-        name: "UOMs",
-        label: "UOM2 Conversion",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[1].name && UOMs[1].ProductUOM ?UOMs[1].ProductUOM.conversionRate:"-"
-          },
-        },
-      },
-      {
-        name: "UOMs",
-        label: "UOM3 Conversion",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[2].name && UOMs[2].ProductUOM ?UOMs[2].ProductUOM.conversionRate:"-"
-          },
-        },
-      },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM 1 Conversion",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[0].name && UOMs[0].ProductUOM ?UOMs[0].ProductUOM.conversionRate:"-"
+      //     },
+      //   },
+      // },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM 2 Conversion",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[1].name && UOMs[1].ProductUOM ?UOMs[1].ProductUOM.conversionRate:"-"
+      //     },
+      //   },
+      // },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM 3 Conversion",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[2].name && UOMs[2].ProductUOM ?UOMs[2].ProductUOM.conversionRate:"-"
+      //     },
+      //   },
+      // },
     
       {
         name: "materialGroup",
@@ -681,45 +683,45 @@ class ProductList extends React.Component {
           sort: true,
         },
       },
-      {
-        name: "Sub Category",
-        label: "Sub Category",
-        options: {
-          filter: true,
-          sort: true,
-        },
-      },
-      {
-        name: "Process",
-        label: "Process",
-        options: {
-          filter: true,
-          sort: true,
-        },
-      },
+      // {
+      //   name: "Sub Category",
+      //   label: "Sub Category",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //   },
+      // },
+      // {
+      //   name: "Process",
+      //   label: "Process",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //   },
+      // },
     
-      {
-        name: "UOMs",
-        label: "UOM4",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[3].name?UOMs[3].name:"-"
-          },
-        },
-      },
-      {
-        name: "UOMs",
-        label: "UOM4 Conversion",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[3].name && UOMs[3].ProductUOM ?UOMs[3].ProductUOM.conversionRate:"-"
-          },
-        },
-      },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM4",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[3].name?UOMs[3].name:"-"
+      //     },
+      //   },
+      // },
+      // {
+      //   name: "UOMs",
+      //   label: "UOM4 Conversion",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (UOMs, tableMeta) => {
+      //       return UOMs[3].name && UOMs[3].ProductUOM ?UOMs[3].ProductUOM.conversionRate:"-"
+      //     },
+      //   },
+      // },
 
       {
         name: "available",
@@ -1008,6 +1010,7 @@ class ProductList extends React.Component {
                             className="table-responsive"
                             data={this.props.product_list}
                             columns={columns}
+                            //columns={[]}
                             options={options}
                           />
                         </MuiThemeProvider>

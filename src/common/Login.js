@@ -203,9 +203,10 @@ class Login extends React.Component {
               <form className="md-float-material form-material">
                 <div className="text-center">
                   <img
-                    src="./assets/images/logo.png"
-                    alt="Online Orders"
+                    src="./PNG.jpg"
+                    alt="Ricelink"
                     className="img_logo_shadow"
+                    style={{height:"12vh"}}
                   />
                 </div>
                 <div className="auth-box card card_login_shadow">
@@ -231,8 +232,8 @@ class Login extends React.Component {
                           >
                             <option value="">Select Role</option>
                             <option value="admin">Super Admin</option>
-                            <option value="other">Ho Admin</option>
-                            <option value="zonal">Zonal Admin</option>
+                            {/* <option value="other">Ho Admin</option>
+                            <option value="zonal">Zonal Admin</option> */}
                             <option value="seller">Seller</option>
                             
                           </select>
@@ -250,8 +251,7 @@ class Login extends React.Component {
                         </div>
                         <div className="form-group form-primary">
                           <input
-                            type="password"
-                            name="password"
+                                             name="password"
                             value={this.state.password}
                             className="form-control"
                             placeholder="Password"

@@ -1,12 +1,12 @@
 $menu-title: #dcdcdc,#624e89,#3c4fb1,#919aa3,#999,#fff;
-$logo-theme: #404E67,#FF7588 ,#00bcd4,#16D39A ,#2196F3,#404E67;
-$header-theme: #fff,#FF7588 ,#00bcd4,#16D39A ,#2196F3,#404E67;
-$left-navbar-theme: #404E67;
+$logo-theme: #2e5919,#FF7588 ,#00bcd4,#16D39A ,#2196F3,#2e5919;
+$header-theme: #fff,#FF7588 ,#00bcd4,#16D39A ,#2196F3,#2e5919;
+$left-navbar-theme: #2e5919;
 $left-navbar-light-theme: #fff;
 $active-item: #FE8A7D,#FF7588 ,#16D39A ,#2196F3,#FFB64D,#ff5e3a,#e64056,#3c4fb1,#FF5370,#F76D47,#39ADB5,#7C4DFF;
 $icon-color: #2196F3,#FF7588 ,#16D39A ,#FFB64D,#ab7967,#39ADB5,#7C4DFF,#FF5370;
-$fream-color: #000,#16D39A,#FF7588,#404E67,#2196F3,#E91E63;
-$dark-layout-color: #404E67;
+$fream-color: #000,#16D39A,#FF7588,#2e5919,#2196F3,#E91E63;
+$dark-layout-color: #2e5919;
 
 .pcoded {
     .pcoded-item.pcoded-left-item {
@@ -508,14 +508,14 @@ $dark-layout-color: #404E67;
                         // display: none;
                         width: 0;
                         border: none;
-                        color: #353c4e;
+                        color: #2e5919;
                         background-color: transparent;
                     }
 
                     .input-group-addon {
                         padding: 0.45rem 0.75rem 0.3rem 0;
                         background-color: transparent;
-                        color: #353c4e;
+                        color: #2e5919;
                         border: none;
 
                         &.search-close {
@@ -526,7 +526,7 @@ $dark-layout-color: #404E67;
                 }
 
                 &.open {
-                    color: #353c4e;
+                    color: #2e5919;
 
                     .input-group {
                         background-color: #dcdcdc;
@@ -536,7 +536,7 @@ $dark-layout-color: #404E67;
                         }
 
                         .input-group-addon {
-                            color: #353c4e;
+                            color: #2e5919;
 
                             &.search-close {
                                 display: block;
@@ -4522,15 +4522,15 @@ $dark-layout-color: #404E67;
             &[header-theme="theme#{$i}"] {
                 background: $value;
                 @if ($temp==1) {
-                    color: #404E67;
+                    color: #2e5919;
                     a {
-                        color: #404E67;
+                        color: #2e5919;
                     }
                     .navbar-logo a {
                         color: #fff;
                     }
                     .navbar-wrapper .header-search .main-search .input-group .input-group-addon{
-                        color: #404E67;
+                        color: #2e5919;
                     }
                     $temp: 0;
                 } @else {
@@ -4551,7 +4551,7 @@ $dark-layout-color: #404E67;
         //         background: $value;
         //
         //         a {
-        //             color: #353c4e;
+        //             color: #2e5919;
         //         }
         //
         //         .navbar-logo a {

@@ -187,7 +187,7 @@ class ResetPassword extends React.Component {
                 <div className="text-center">
                   <img
                     src="./assets/images/logo.png"
-                    alt="Online Orders"
+                    alt="Ricelink"
                     className="img_logo_shadow"
                   />
                 </div>

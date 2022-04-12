@@ -54,7 +54,7 @@ class AdminDashboard extends React.Component {
               </div>
             </div>
             <div className="page-body">
-              <h3 className="text-danger">Welcome to Online Orders Business <span style={{textTransform:'capitalize'}}>
+              <h3 className="text-danger">Welcome to Rice Link Business <span style={{textTransform:'capitalize'}}>
               {localStorage.getItem('role') ==='other'? "":localStorage.getItem('role') } 
               </span> </h3>
               {/* <div className="row">

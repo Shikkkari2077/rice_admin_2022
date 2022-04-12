@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../store/login/usersActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import img from '../ProductMasterFormats/PNG.png'
+import img from '../ProductMasterFormats/PNG.jpg'
 
 class Header extends React.Component {
   Signout = () => {
@@ -24,7 +24,7 @@ class Header extends React.Component {
             </a>
             <Link to="/" >
               {/* <img className="img-fluid img-40" src="./assets/images/logo.png" alt="Theme-Logo" /> */}
-              <h5 className="text-primary">Online Order</h5>
+              <h5 className="text-primary">Rice link</h5>
             </Link>
             <a className="mobile-options">
               <i className="feather icon-more-horizontal"></i>
