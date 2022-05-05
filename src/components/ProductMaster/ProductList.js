@@ -571,25 +571,31 @@ class ProductList extends React.Component {
           sort: true,
         },
       },
-      {
-        name: "BaseUOM",
-        label: "BaseUOM",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (BaseUOM, tableMeta) => {
-            return BaseUOM.name?BaseUOM.name:"-"
-          },
-        },
-      },
+      // {
+      //   name: "BaseUOM",
+      //   label: "BaseUOM",
+      //   options: {
+      //     filter: true,
+      //     sort: true,
+      //     customBodyRender: (BaseUOM, tableMeta) => {
+      //       return BaseUOM.name?BaseUOM.name:"-"
+      //     },
+      //   },
+      // },
       {
         name: "UOMs",
-        label: "UOM 1",
+        label: "UOMs",
         options: {
           filter: true,
           sort: true,
           customBodyRender: (UOMs, tableMeta) => {
-            return UOMs[0].name?UOMs[0]?.name:"-"
+            return <div>
+                  {UOMs.length>0?UOMs.map((uom,i)=>(
+                  <>
+                  <span>UOM {i+1} - {uom.name}</span>
+                  <br />
+                  </>)):null}
+                </div>
           },
         },
       },
@@ -875,14 +881,22 @@ class ProductList extends React.Component {
                   </div>
                   {/* {localStorage.getItem("superadminad_role") === "shop" ? ( */}
                   <div className="f-right">
-                    {/* <Link
+                    <Link
+                        to="/products/add"
+                        className="btn btn-sm btn-dark waves-effect waves-light d-inline-block md-trigger ml-3"
+                        data-modal="modal-13"
+                      >
+                        {" "}
+                        <i className="icofont icofont-arrow-left m-r-5"></i> Add Product{" "}
+                      </Link>
+                    <Link
                       to="/"
                       className="btn btn-sm btn-outline-dark waves-effect waves-light d-inline-block md-trigger ml-3"
                       data-modal="modal-13"
                     >
                       {" "}
                       <i className="icofont icofont-arrow-left m-r-5"></i> Back{" "}
-                    </Link> */}
+                    </Link>
                   </div>
                   {/* ) : null} */}
                 </div>

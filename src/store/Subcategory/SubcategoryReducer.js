@@ -16,7 +16,7 @@ const subcategoryReducer = (state = initialState, action) => {
     case FETCH_SUBCATG_LIST:
       return {
         ...state,
-        subcategory_list: action.payload,
+        subcategory_list: action.payload.data,
         isLoading: false,
         error: action.payload.status,
       };

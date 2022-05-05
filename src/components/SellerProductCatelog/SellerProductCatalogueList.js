@@ -21,7 +21,7 @@ import {
 } from "@material-ui/core";
 
 import {
-  fetchSellerProductAList,
+  fetchSellerProductList,
   fetchcityList,
   updateSellerProduct,
   fetchPincodeList,
@@ -108,7 +108,7 @@ class SellerProductCatalogueList extends React.Component {
     var pincode = this.state.pincode !== "All" ? this.state.pincode : "";
     var startBatchDate = this.state.startBatchDate;
     var endBatchDate = this.state.endBatchDate;
-    this.props.fetchSellerProductAList(
+    this.props.fetchSellerProductList(
       0, //range
       50, //length
       seller,
@@ -160,7 +160,7 @@ class SellerProductCatalogueList extends React.Component {
     var pincode = this.state.pincode !== "All" ? this.state.pincode : "";
     var startBatchDate = this.state.startBatchDate;
     var endBatchDate = this.state.endBatchDate;
-    this.props.fetchSellerProductAList(
+    this.props.fetchSellerProductList(
       0, //range
       50, //length
       seller,
@@ -182,7 +182,7 @@ class SellerProductCatalogueList extends React.Component {
     var pincode = this.state.pincode !== "All" ? this.state.pincode : "";
     var startBatchDate = this.state.startBatchDate;
     var endBatchDate = this.state.endBatchDate;
-    this.props.fetchSellerProductAList(
+    this.props.fetchSellerProductList (
       0, //range
       50, //length
       seller,
@@ -237,7 +237,7 @@ class SellerProductCatalogueList extends React.Component {
     startBatchDate,
     endBatchDate
   ) => {
-    this.props.fetchSellerProductAList(
+    this.props.fetchSellerProductList(
       range,
       length,
       seller,
@@ -265,6 +265,11 @@ class SellerProductCatalogueList extends React.Component {
       }
 
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log('Props',nextProps.sellerProduct_list);
+    this.setState({sellerProduct_list:nextProps.sellerProduct_list})
   }
 
   // handleSelect = (e, id) => {
@@ -531,6 +536,7 @@ class SellerProductCatalogueList extends React.Component {
    
   }
   render() {
+    console.log('this.props.sellerProduct',this.props.sellerProduct);
    
     const AntSwitch = withStyles((theme) => ({
       root: {
@@ -947,8 +953,26 @@ class SellerProductCatalogueList extends React.Component {
                 <div className="col-lg-8">
                   <div className="page-header-title">
                     <div className="d-inline">
-                      <h4>Seller Product Catalogue</h4>
+                      <h4>Seller Product</h4>
                     </div>
+                  </div>
+                  <div className="f-right">
+                    <Link
+                        to="/seller-product-catalogue/add"
+                        className="btn btn-sm btn-dark waves-effect waves-light d-inline-block md-trigger ml-3"
+                        data-modal="modal-13"
+                      >
+                        {" "}
+                        <i className="icofont icofont-arrow-left m-r-5"></i> Add Product{" "}
+                      </Link>
+                    <Link
+                      to="/"
+                      className="btn btn-sm btn-outline-dark waves-effect waves-light d-inline-block md-trigger ml-3"
+                      data-modal="modal-13"
+                    >
+                      {" "}
+                      <i className="icofont icofont-arrow-left m-r-5"></i> Back{" "}
+                    </Link>
                   </div>
                  
                 </div>
@@ -961,7 +985,7 @@ class SellerProductCatalogueList extends React.Component {
                         </Link>
                       </li>
                       <li className="breadcrumb-item active">
-                        Seller Product Catalogue
+                        Seller Product
                       </li>
                     </ul>
                   </div>
@@ -1313,7 +1337,7 @@ class SellerProductCatalogueList extends React.Component {
                         <MuiThemeProvider theme={this.getMuiTheme()}>
                           <MUIDataTable
                             className="table-responsive"
-                            data={this.props.sellerProduct}
+                            data={this.state.sellerProduct_list}
                             columns={columns}
                             options={options}
                           />
@@ -1358,7 +1382,7 @@ class SellerProductCatalogueList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    sellerProduct:state.sellerProduct.sellerProduct,
+    sellerProduct_list:state.sellerProduct.sellerProduct_list,
     isLoading: state.sellerProduct.isLoading,
     seller_list: state.seller.seller_list,
     productCount:state.sellerProduct.count,
@@ -1369,10 +1393,10 @@ const mapStateToProps = (state) => {
   };
 };
 SellerProductCatalogueList.propTypes = {
-  fetchSellerProductAList: PropTypes.object.isRequired,
+  fetchSellerProductList: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, {
-  fetchSellerProductAList,
+  fetchSellerProductList,
   fetchPincodeList,
   fetchstateList,
   fetchSellerList,

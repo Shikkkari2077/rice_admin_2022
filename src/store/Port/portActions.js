@@ -1,35 +1,35 @@
 import axios from "axios";
 import Constant from "../../Constant";
-import { FETCH_SUBCATG_LIST, 
-  FETCH_SUBCATG_ERROR, 
-  FETCH_SUBCATG_REQ ,
+import { FETCH_PORT_LIST, 
+  FETCH_PORT_ERROR, 
+  FETCH_PORT_REQ ,
 } from "../types";
 import Swal from 'sweetalert2'
-export const getSubCategoryReq = () => {
+export const getPortReq = () => {
   return {
-    type: FETCH_SUBCATG_REQ,
+    type: FETCH_PORT_REQ,
   };
 };
 
-export const getSubCategorySucess = (subcategory_list) => {
+export const getPortSucess = (Port_list) => {
   return {
-    type: FETCH_SUBCATG_LIST,
-    payload: subcategory_list,
+    type: FETCH_PORT_LIST,
+    payload: Port_list,
   };
 };
 
-export const getSubCategoryError = (error) => {
+export const getPortError = (error) => {
   return {
-    type: FETCH_SUBCATG_ERROR,
+    type: FETCH_PORT_ERROR,
     error: error,
   };
 };
 
-export const fetchSubCategoryList = (data) => {
+export const fetchPortList = (data) => {
   return (dispatch) => {
-    dispatch(getSubCategoryReq);
+    dispatch(getPortReq);
     axios
-      .post(Constant.getAPI() + "/subcategory/list",data, {
+      .post(Constant.getAPI() + "/portmaster/list",data, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
@@ -37,25 +37,25 @@ export const fetchSubCategoryList = (data) => {
       })
       .then((res) => {
         // if (res.status === true) {
-          const subcategory_list = res.data;
+          const Port_list = res.data;
           console.log(res.data)
-          dispatch(getSubCategorySucess(subcategory_list));
+          dispatch(getPortSucess(Port_list));
         // }
       })
       .catch((err) => {
         const errMsg = err.message;
-        dispatch(getSubCategoryError(errMsg));
+        dispatch(getPortError(errMsg));
       });
   };
 };
 
-export const subCategoryAdd = (name, description, MediumId,CategoryId,status,priority) => {
+export const PortAdd = (name, description, MediumId,CategoryId,status,priority) => {
   return (dispatch) => {
-    dispatch(getSubCategoryReq);
+    dispatch(getPortReq);
   
         axios
           .post(
-            Constant.getAPI() + "/subcategory/add",
+            Constant.getAPI() + "/portmaster/add",
             {
               name,
               description,
@@ -90,8 +90,8 @@ export const subCategoryAdd = (name, description, MediumId,CategoryId,status,pri
                   confirmButtonText: "Ok",
                 }).then((value) => {
                   if (value) {
-                    dispatch(fetchSubCategoryList())
-                    window.location.href = "#/subcategory";
+                    dispatch(fetchPortList())
+                    window.location.href = "#/Port";
                   }
                 });
               }
@@ -100,29 +100,20 @@ export const subCategoryAdd = (name, description, MediumId,CategoryId,status,pri
           .catch((err) => {
             const errMsg = err.message;
             console.log(err);
-            dispatch(getSubCategoryError(err));
+            dispatch(getPortError(err));
           });
    
   };
 };
 
-export const updateSubCategory = (SubCategoryId,name,description,status,CategoryId,Mediaadd,MediumId) => {
+export const updatePort = (data) => {
  console.log(Mediaadd)
   return (dispatch) => {
-    dispatch(getSubCategoryReq);
-     if(Mediaadd == true){
- 
+    dispatch(getPortReq);
         axios
           .post(
-            Constant.getAPI() + "/subcategory/edit",
-            {
-              SubCategoryId,
-              name,
-              description,
-              status,
-              MediumId,
-              CategoryId
-            },
+            Constant.getAPI() + "/Port/edit",
+            data,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -148,8 +139,8 @@ export const updateSubCategory = (SubCategoryId,name,description,status,Category
                   confirmButtonText: "Ok",
                 }).then((value) => {
                   if (value) {
-                    dispatch(fetchSubCategoryList())
-                    window.location.href = "#/subcategory/list";
+                    dispatch(fetchPortList())
+                    window.location.href = "#/Port/list";
                     //window.location.reload();
                   }
                 });
@@ -159,61 +150,10 @@ export const updateSubCategory = (SubCategoryId,name,description,status,Category
           .catch((err) => {
             const errMsg = err.message;
             console.log(err);
-            dispatch(getSubCategoryError(err));
+            dispatch(getPortError(err));
           });
-   
-    }
-    else{
-      axios
-      .post(
-        Constant.getAPI() + "/subcategory/edit",
-        {
-          SubCategoryId,
-          name,
-          description,
-          status,
-          CategoryId
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem(
-              "superadmin_auth"
-            )}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        console.log(res.status);
-        if (res.status === 200) {
-          const category_res = res.data;
-     
-          if (category_res.success === true) {
-            Swal.fire({
-              title: "Updated Successfully",
-              icon: "success",
-              text: "",
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Ok",
-            }).then((value) => {
-              if (value) {
-                dispatch(fetchSubCategoryList())
-                window.location.href = "#/subcategory/list";
-                //window.location.reload();
-              }
-            });
-          }
-        }
-      })
-      .catch((err) => {
-        const errMsg = err.message;
-        console.log(err);
-        dispatch(getSubCategoryError(err));
-      });
 
-    }
+    
   };
 };
 

@@ -1,35 +1,35 @@
 import axios from "axios";
 import Constant from "../../Constant";
-import { FETCH_SUBCATG_LIST, 
-  FETCH_SUBCATG_ERROR, 
-  FETCH_SUBCATG_REQ ,
+import { FETCH_BAG_LIST, 
+  FETCH_BAG_ERROR, 
+  FETCH_BAG_REQ ,
 } from "../types";
 import Swal from 'sweetalert2'
-export const getSubCategoryReq = () => {
+export const getBagReq = () => {
   return {
-    type: FETCH_SUBCATG_REQ,
+    type: FETCH_BAG_REQ,
   };
 };
 
-export const getSubCategorySucess = (subcategory_list) => {
+export const getBagSucess = (Bag_list) => {
   return {
-    type: FETCH_SUBCATG_LIST,
-    payload: subcategory_list,
+    type: FETCH_BAG_LIST,
+    payload: Bag_list,
   };
 };
 
-export const getSubCategoryError = (error) => {
+export const getBagError = (error) => {
   return {
-    type: FETCH_SUBCATG_ERROR,
+    type: FETCH_BAG_ERROR,
     error: error,
   };
 };
 
-export const fetchSubCategoryList = (data) => {
+export const fetchBagList = () => {
   return (dispatch) => {
-    dispatch(getSubCategoryReq);
+    dispatch(getBagReq);
     axios
-      .post(Constant.getAPI() + "/subcategory/list",data, {
+      .get(Constant.getAPI() + "/bag/list", {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
@@ -37,25 +37,25 @@ export const fetchSubCategoryList = (data) => {
       })
       .then((res) => {
         // if (res.status === true) {
-          const subcategory_list = res.data;
+          const Bag_list = res.data;
           console.log(res.data)
-          dispatch(getSubCategorySucess(subcategory_list));
+          dispatch(getBagSucess(Bag_list));
         // }
       })
       .catch((err) => {
         const errMsg = err.message;
-        dispatch(getSubCategoryError(errMsg));
+        dispatch(getBagError(errMsg));
       });
   };
 };
 
-export const subCategoryAdd = (name, description, MediumId,CategoryId,status,priority) => {
+export const BagAdd = (name, description, MediumId,CategoryId,status,priority) => {
   return (dispatch) => {
-    dispatch(getSubCategoryReq);
+    dispatch(getBagReq);
   
         axios
           .post(
-            Constant.getAPI() + "/subcategory/add",
+            Constant.getAPI() + "/bag/add",
             {
               name,
               description,
@@ -90,8 +90,8 @@ export const subCategoryAdd = (name, description, MediumId,CategoryId,status,pri
                   confirmButtonText: "Ok",
                 }).then((value) => {
                   if (value) {
-                    dispatch(fetchSubCategoryList())
-                    window.location.href = "#/subcategory";
+                    dispatch(fetchBagList())
+                    window.location.href = "#/Bag";
                   }
                 });
               }
@@ -100,29 +100,19 @@ export const subCategoryAdd = (name, description, MediumId,CategoryId,status,pri
           .catch((err) => {
             const errMsg = err.message;
             console.log(err);
-            dispatch(getSubCategoryError(err));
+            dispatch(getBagError(err));
           });
    
   };
 };
 
-export const updateSubCategory = (SubCategoryId,name,description,status,CategoryId,Mediaadd,MediumId) => {
- console.log(Mediaadd)
+export const updateBag = (data) => {
   return (dispatch) => {
-    dispatch(getSubCategoryReq);
-     if(Mediaadd == true){
- 
+    dispatch(getBagReq);
         axios
           .post(
-            Constant.getAPI() + "/subcategory/edit",
-            {
-              SubCategoryId,
-              name,
-              description,
-              status,
-              MediumId,
-              CategoryId
-            },
+            Constant.getAPI() + "/bag/edit",
+            data,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -148,8 +138,8 @@ export const updateSubCategory = (SubCategoryId,name,description,status,Category
                   confirmButtonText: "Ok",
                 }).then((value) => {
                   if (value) {
-                    dispatch(fetchSubCategoryList())
-                    window.location.href = "#/subcategory/list";
+                    dispatch(fetchBagList())
+                    window.location.href = "#/Bag/list";
                     //window.location.reload();
                   }
                 });
@@ -159,61 +149,10 @@ export const updateSubCategory = (SubCategoryId,name,description,status,Category
           .catch((err) => {
             const errMsg = err.message;
             console.log(err);
-            dispatch(getSubCategoryError(err));
+            dispatch(getBagError(err));
           });
-   
-    }
-    else{
-      axios
-      .post(
-        Constant.getAPI() + "/subcategory/edit",
-        {
-          SubCategoryId,
-          name,
-          description,
-          status,
-          CategoryId
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem(
-              "superadmin_auth"
-            )}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        console.log(res.status);
-        if (res.status === 200) {
-          const category_res = res.data;
-     
-          if (category_res.success === true) {
-            Swal.fire({
-              title: "Updated Successfully",
-              icon: "success",
-              text: "",
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Ok",
-            }).then((value) => {
-              if (value) {
-                dispatch(fetchSubCategoryList())
-                window.location.href = "#/subcategory/list";
-                //window.location.reload();
-              }
-            });
-          }
-        }
-      })
-      .catch((err) => {
-        const errMsg = err.message;
-        console.log(err);
-        dispatch(getSubCategoryError(err));
-      });
 
-    }
+    
   };
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import Constant from "../../Constant";
-import { FETCH_PRODUCT_LIST, FETCH_PRODUCT_ERROR, FETCH_PRODUCT_REQ,FETCH_PRODUCTIMPORT_LIST,FETCH_PRODUCT_SELLER_LIST } from "../types";
+import { FETCH_PRODUCT_LIST, FETCH_PRODUCT_DEPARTMENT,  FETCH_PRODUCT_ERROR, FETCH_PRODUCT_REQ,FETCH_PRODUCTIMPORT_LIST,FETCH_PRODUCT_SELLER_LIST } from "../types";
 import qs from 'qs';
 import Swal from "sweetalert2";
 
@@ -15,6 +15,13 @@ export const getproductSucess = (product_list) => {
   return {
     type: FETCH_PRODUCT_LIST,
     payload: product_list,
+  };
+};
+
+export const getproductDepartment = (department_list) => {
+  return {
+    type: FETCH_PRODUCT_DEPARTMENT,
+    payload: department_list,
   };
 };
 
@@ -55,7 +62,7 @@ export const fetchProductList = (range,recordLimit,productSKU,productName) => {
     {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
+          "Authorization": `Bearer ${localStorage.getItem('role')=='admin'?localStorage.getItem('superadmin_auth'):localStorage.getItem('seller_auth')}`,
         },
       })
       .then((res) => {
@@ -63,6 +70,35 @@ export const fetchProductList = (range,recordLimit,productSKU,productName) => {
           const product_list = res.data;
           console.log(res.data)
           dispatch(getproductSucess(product_list));
+        // }
+      })
+      .catch((err) => {
+        const errMsg = err.message;
+        dispatch(getproductError(errMsg));
+      });
+  };
+};
+
+export const fetchProductDepartmentList = () => {
+  
+  return (dispatch) => {
+    dispatch(getproductReq);
+    axios
+      .post(Constant.getAPI() + "/productdepartment/list", 
+      {
+       
+      },
+    {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
+        },
+      })
+      .then((res) => {
+        // if (res.status === true) {
+          const Department_list = res.data;
+          console.log(res.data)
+          dispatch(getproductDepartment(Department_list));
         // }
       })
       .catch((err) => {
@@ -94,6 +130,39 @@ export const uploadProductList = (status,id,redirect) => {
           // dispatch(addcouponSucess(delivery_add));
           Swal.fire({
             title: "Updated Successfully",
+            icon: "success",
+            text: "",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ok",
+          })
+        
+        }
+      })
+      .catch((err) => {
+        const errMsg = err.message;
+        dispatch(getproductError(errMsg));
+      });
+  };
+};
+
+export const ProductADD = (data) => {
+  return (dispatch) => {
+    dispatch(getproductReq);
+    axios
+      .post(Constant.getAPI() + "/product/add",data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
+        },
+      })
+      .then((res) => {
+        //console.log(res);
+        if (res.data.success === true) {
+         
+          Swal.fire({
+            title: "Added Successfully",
             icon: "success",
             text: "",
             confirmButtonColor: "#3085d6",

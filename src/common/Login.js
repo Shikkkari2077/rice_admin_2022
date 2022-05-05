@@ -230,7 +230,7 @@ class Login extends React.Component {
                             onChange={this.onInputChange}
                             value={this.state.role}
                           >
-                            <option value="">Select Role</option>
+                            <option value=""> - Select Role - </option>
                             <option value="admin">Super Admin</option>
                             {/* <option value="other">Ho Admin</option>
                             <option value="zonal">Zonal Admin</option> */}
@@ -304,7 +304,7 @@ class Login extends React.Component {
                             onChange={this.onInputChange}
                             value={this.state.role}
                           >
-                            <option value="">Select Role</option>
+                            <option value=""> - Select Role - </option>
                             <option value="admin">Super Admin</option>
                             <option value="seller">Seller</option>
                             <option value="hoAdmin">HO Admin</option>

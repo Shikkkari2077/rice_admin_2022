@@ -47,11 +47,11 @@ export const getcityError = (error) => {
   };
 };
 
-export const fetchcityList = (range,length) => {
+export const fetchcityList = () => {
   return (dispatch) => {
     dispatch(getcityReq);
     axios
-      .get(Constant.getAPI() + `/city/list?recordLimit=${length}&startRange=${range}&`, {
+      .get(Constant.getAPI() + `/city/list`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,

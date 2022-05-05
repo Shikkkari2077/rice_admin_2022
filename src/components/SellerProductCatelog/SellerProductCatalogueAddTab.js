@@ -44,7 +44,7 @@ class SellerProductCatalogueAddTab extends React.Component {
                   <div className="d-inline">
                     <h4>
                       {this.props.match.params.seller_product_id ? "Edit" : "Add"}{" "}
-                      Seller Product Catalouge
+                      Seller Product
                     </h4>
                   </div>
                 </div>
@@ -58,11 +58,11 @@ class SellerProductCatalogueAddTab extends React.Component {
                       </Link>
                     </li>
                     <li className="breadcrumb-item">
-                      <Link to="/seller-product-catalogue">Seller Product Catalouge</Link>
+                      <Link to="/seller-product-catalogue">Seller Product</Link>
                     </li>
                     <li className="breadcrumb-item active">
                       {this.props.match.params.seller_product_id ? "Edit" : "Add"}{" "}
-                      Seller Product Catalouge
+                      Seller Product
                     </li>
                   </ul>
                 </div>

@@ -1,10 +1,11 @@
-import { FETCH_PRODUCT_LIST, FETCH_PRODUCT_ERROR, FETCH_PRODUCT_REQ,FETCH_PRODUCTIMPORT_LIST ,FETCH_PRODUCT_SELLER_LIST} from "../types";
+import { FETCH_PRODUCT_LIST,FETCH_PRODUCT_DEPARTMENT, FETCH_PRODUCT_ERROR, FETCH_PRODUCT_REQ,FETCH_PRODUCTIMPORT_LIST ,FETCH_PRODUCT_SELLER_LIST} from "../types";
 
 
 const initialState = {
   product_list: [],
   importproduct_list:[],
   product_seller:[],
+  product_department:[],
   isLoading: true,
   error: null,
 };
@@ -35,6 +36,13 @@ const productReducer = (state = initialState, action) => {
         return {
           ...state,
           importproduct_list:action.payload,
+          isLoading:false,
+          error:action.payload.status
+        }
+      case FETCH_PRODUCT_DEPARTMENT:
+        return {
+          ...state,
+          product_department:action.payload.data,
           isLoading:false,
           error:action.payload.status
         }

@@ -330,14 +330,24 @@ class SideNavBar extends React.Component {
               </Link>
             </li>  */}
              {localStorage.getItem('Product')=='true'?
-            <li className=" ">
-              <Link to="/products">
-                <span className="pcoded-micon">
-                  <i className="feather icon-command"></i>
-                </span>
-                <span className="pcoded-mtext">Product Master Upload</span>
-              </Link>
-            </li>
+              <>
+                <li className=" ">
+                  <Link to="/products">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-command"></i>
+                    </span>
+                    <span className="pcoded-mtext">Product Master Upload</span>
+                  </Link>
+                </li>
+                <li className=" ">
+                  <Link to="/category">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">Category Master</span>
+                  </Link>
+                </li>
+              </>
             :null}
            {localStorage.getItem('SellerDetails')=='true'?
 

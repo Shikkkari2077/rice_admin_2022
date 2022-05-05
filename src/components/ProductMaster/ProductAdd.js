@@ -8,786 +8,559 @@ import AddGalleryImage from "./AddGalleryImage";
 import Select from "react-select";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchCategoryList, } from "../../store/index";
+import { fetchCategoryList,
+        fetchSubCategoryList,
+        fetchUOMList,
+        fetchBrandList,
+        fetchcityList,
+        fetchCountryList,
+        fetchBagList,
+        ProductADD,
+ } from "../../store/index";
+import axios from "axios";
 
 class ProductAdd extends React.Component {
   state = {
-    status: "Active",
-    description: "",
-    refund_policy: "",
-    gallery: [],
-    galleryURL: [],
-    selected_attributes: [],
-    categories: [],
-    packageCategory: [
-      { categoryID: "1", category: "hello" },
-      { categoryID: "2", category: "hello" },
-    ],
+    name: "",
+    longDescription: "",
+    shortDescription: "",
+    categoryId:'',
   };
-    componentWillMount(props){
-        if(this.props.product_id !== undefined){
-          console.log('get',this.props.product_id)
-          this.setState({
-            product_id:this.props.product_id,
-            updating:true
-          })
-          this.props.fetchCategoryList(this.props.product_id)
-        }
-        else{
-          console.log('notget')
-        }
-      }
-      componentWillReceiveProps(nextProps){
-       console.log('hello',nextProps.category_det)
+
+  onNextStep = (mediaID) => {
+
+    var VALID = new Date(this.state.validity)
+    var F_VALID = VALID.getTime()
+
+    if(this.props.product_id){
+      // let MEDIA = media.concat(media2)
+
+      // let MEDIA2 = []
+      // if(this.state.imageData2!==[] && this.state.imageData2!==undefined && this.state.imageData2!==null){
+      //   let Data = this.state.imageData2
+      //   var SavedMedia = Data.map(data2=>data2.id)
+      //       SavedMedia = new Set(SavedMedia)
+      //   MEDIA2 = [...SavedMedia]
+      // }
+     
       
-      //  this.setState({
-      //   name:nextProps.category_det[0].name,
-      //   description:nextProps.category_det[0].description,
-      //   image:nextProps.category_det[0].Medium ? nextProps.category_det[0].Medium.url : ''
-      //    // currency:nextProps.category_det[0].
-      //  })
-       console.log('data',this.state.data)
-     }
-  onHandleDescriptionChange = (value) => {
-    this.setState({ description: value });
-  };
-  onHandleRefundPolicyChange = (value) => {
-    this.setState({ refund_policy: value });
-  };
-
-  onHandleDescriptionChange = (value) => {
-    this.setState({ description: value });
-  };
- 
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
   
-   onSaveData=()=>{
-   this.uploadMedia()
-  };
-  // componentWillMount() {
-  //   this.getAttributeList();
-  //   this.getCategoryList();
-  //   this.getBrandlist();
-  //   this.getProductDetails();
-  //   this.loadScript(
-  //     process.env.PUBLIC_URL + "/assets/pages/filer/jquery.fileuploads.init.js"
-  //   );
-  // }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.product_id !== this.props.product_id) {
-  //     this.setState({ product_id: this.props.product_id });
-  //     this.getProductDetails();
-  //   }
-  //   if (prevProps.language_id !== this.props.language_id) {
-  //     if (this.props.product_id !== undefined) {
-  //       this.setState({ product_id: this.props.product_id });
-  //       this.getProductDetails();
-  //       this.getAttributeList();
-  //       this.getCategoryList();
-  //       this.getBrandlist();
-  //       // this.getShopList();
-  //     }
-  //   }
-  // }
- 
-
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
- 
-  handleImageUpload = (event) => {
-    document.getElementById("banner_image_label").innerHTML = "";
-    let element = $("#product_banner_image").get(0);
-    // $("#id_image_section").empty();
-    this.setState({ accepted: element });
-    var proof_img = [];
-    let obj = {};
-    console.log(element.files);
-    this.setState({ product_banner_image: element.files });
-    for (var i = 0; i < element.files.length; i++) {
-      var file1 = element.files[i];
-      var img = document.createElement("img");
-      img.className = "img-100";
-      var filePath = URL.createObjectURL(file1);
-      img.src = filePath;
-      $("#banner_image_label").append(img);
+      // this.props.updatePOST(data)
+    }else{
+      var data = {
+        name:this.state.name,
+        longDescription:this.state.longDescription,
+        shortDescription:this.state.shortDescription,
+        igst:this.state.igst,
+        sgst:this.state.sgst,
+        cgst:this.state.cgst,
+        SKU:parseInt(this.state.SKU),
+        availableQuantity:parseInt(this.state.availableQuantity),
+        minimumOrderQuantity:parseInt(this.state.minimumOrderQuantity),
+        usdPrice:parseInt(this.state.usdPrice),
+        inrPrice:parseInt(this.state.inrPrice),
+        barcode:this.state.barcode,
+        available:true,
+        validity:F_VALID,
+        packSize:this.state.packSize,
+        grossWeight:this.state.grossWeight,
+        netWeight:this.state.netWeight,
+        baseUOMId:this.state.baseUOMId,
+        brandId:this.state.brandId,
+        categoryId:this.state.categoryId,
+        subCategoryId:this.state.subCategoryId,
+        keyFeatures:this.state.keyFeatures,
+        // productMediumId: mediaID,
+        keywords1:this.state.keywords1,
+        keywords2:this.state.keywords2,
+        cityId:this.state.cityId,
+        bagId:this.state.bagId,
+        countryId:this.state.countryId,
+      };
+  
+      this.props.ProductADD(data)
     }
   };
- 
-  onSaveData = () => {
-    var that = this;
-    that.setState({ isSaving: true });
 
-    if (that.props.product_id !== undefined) {
-      that.updateProduct();
-    } else {
-      this.addProduct();
-    }
-  };
- 
-  
- 
 
- 
-  onSelectBrand = (e) => {
-    this.setState({ brandId: e.target.value });
-  };
-  onSelectCategory = (e) => {
-    this.setState({ categoryId: e.target.value });
-  };
-  onSelectCategory = (e) => {
-    this.setState({ categoryId: e.target.value });
-  };
+  componentWillMount(){
+        this.props.fetchCategoryList()
+        this.props.fetchUOMList()
+        this.props.fetchBrandList()
+        this.props.fetchcityList()
+        this.props.fetchCountryList()
+        this.props.fetchBagList()
+        console.log('Triggered');
+  }
+
   
-  handleSelectCat = (categories) => {
+  componentWillReceiveProps(nextProps){
+
     this.setState({
-      categories: categories,
-      cat: Array.isArray(categories) ? categories.map((x) => x.categoryID) : [],
-    });
+      category_list:nextProps.category_list,
+      subcategory_list:nextProps.subcategory_list,
+      uom_list:nextProps.uom_list,
+      brand_list:nextProps.brand_list,
+      city_list:nextProps.city_list,
+      country_list:nextProps.country_list,
+      bags_list:nextProps.bags_list,
+    })
+
+  }
+
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.categoryId !== prevState.categoryId) {
+        var data ={
+          CategoryId:this.state.categoryId
+        }
+        this.props.fetchSubCategoryList(data)
+    }
+  }
+
+ 
+  
+  onHandleShortDescriptionChange = (value) => {
+    this.setState({ shortDescription: value });
   };
+
+  onHandleLongDescriptionChange = (value) => {
+    this.setState({ longDescription: value });
+  };
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  
 
   render() {
-    const { categories } = this.state;
-    const customStyles = {
-      option: (provided, state) => ({
-        ...provided,
-        borderBottom: "1px dotted grey",
-        color: state.isSelected ? "red" : "black",
-        padding: 8,
-      }),
-      input: (provided) => ({
-        ...provided,
-        display: "flex",
-        height: "30px",
-      }),
-    };
-    return localStorage.getItem('role') !== "admin" ? (
-      localStorage.getItem('role') === "seller" ? (
-        <div className="">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Name</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="name"
-                      disabled
-                      placeholder="Name"
-                      onChange={this.handleChange}
-                      value={this.state.name}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">SKU</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="sku"
-                      id="sku"
-                      disabled
-                      placeholder="SKU"
-                      onChange={this.handleChange}
-                      value={this.state.sku}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Category</label>
-                  <div className="col-sm-9">
-                    <select
-                      name="categoryId"
-                      disabled
-                      onChange={this.handleChange}
-                      value={this.state.categoryId}
-                      className="form-control"
-                    >
-                      <option>Select Category</option>
-                      {this.state.categoryList !== undefined
-                        ? this.state.categoryList.map((category) => (
-                            <option value={category.id}>{category.name}</option>
-                          ))
-                        : ""}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              {/* <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">
-                    Sub Category
-                  </label>
-                  <div className="col-sm-9">
-                    <select
-                      name="subcategoryId"
-                      onChange={this.handleChange}
-                      value={this.state.subcategoryId}
-                      className="form-control"
-                      disabled
-                    >
-                      <option>Select Sub-Category</option>
-                      {this.state.categoryList !== undefined
-                        ? this.state.categoryList.map((category) => (
-                            <option value={category.id}>{category.name}</option>
-                          ))
-                        : ""}
-                    </select>
-                  </div>
-                </div>
-              </div> */}
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Brand</label>
-                  <div className="col-sm-9">
-                    <select
-                      name="brandId"
-                      disabled
-                      onChange={this.handleChange}
-                      value={this.state.brandId}
-                      className="form-control"
-                    >
-                      <option>Select Brand</option>
-                      {this.state.categoryList !== undefined
-                        ? this.state.categoryList.map((category) => (
-                            <option value={category.id}>{category.name}</option>
-                          ))
-                        : ""}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Attributes</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="attributes"
-                      disabled
-                      placeholder="Attributes"
-                      onChange={this.handleChange}
-                      value={this.state.attributes}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Unit</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="unit"
-                      disabled
-                      placeholder="Unit"
-                      onChange={this.handleChange}
-                      value={this.state.unit}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">MRP</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="mrp"
-                      placeholder="MRP(Max. Retail Price)"
-                      onChange={this.handleChange}
-                      value={this.state.mrp}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">PTC</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="ptc"
-                      placeholder="PTC()"
-                      onChange={this.handleChange}
-                      value={this.state.ptc}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">PTD</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="ptd"
-                      placeholder="PTD()"
-                      onChange={this.handleChange}
-                      value={this.state.ptd}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">SGST</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="sgst"
-                      disabled
-                      placeholder="SGST()"
-                      onChange={this.handleChange}
-                      value={this.state.sgst}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">CGST</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="cgst"
-                      placeholder="CGST()"
-                      disabled
-                      onChange={this.handleChange}
-                      value={this.state.cgst}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">IGST</label>
-                  <div className="col-sm-9">
-                    <input
-                      disabled
-                      type="text"
-                      className="form-control"
-                      name="igst"
-                      placeholder="IGST()"
-                      onChange={this.handleChange}
-                      value={this.state.igst}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Expiry Date</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="date"
-                      className="form-control"
-                      disabled
-                      name="expirydate"
-                      placeholder="Expiry Date"
-                      onChange={this.handleChange}
-                      value={this.state.expirydate}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Key Words</label>
-                  <div className="col-sm-9">
-                    <Select
-                      isDisabled={true}
-                      styles={customStyles}
-                      isMulti={true}
-                      value={categories}
-                      getOptionLabel={(option) => `${option.category}`}
-                      getOptionValue={(option) => `${option.categoryID}`}
-                      onChange={this.handleSelectCat}
-                      options={this.state.packageCategory}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Short Desc.</label>
-                  <div className="col-sm-9">
-                    <textarea
-                      rows={3}
-                      disabled
-                      // cols={}
-                      className="form-control"
-                      onChange={this.handleChange}
-                      name="shortDescription"
-                      placeholder="Short Desc."
-                      value={this.state.shortDescription}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Long Desc.</label>
-                  <div className="col-sm-9">
-                    <textarea
-                      rows={3}
-                      // cols={}
-                      disabled
-                      className="form-control"
-                      onChange={this.handleChange}
-                      name="longDescription"
-                      placeholder="Long Desc."
-                      value={this.state.longDescription}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Status</label>
-                  <div className="col-sm-9">
-                    <select
-                      name="status"
-                      className="form-control"
-                      value={this.state.status}
-                      onChange={this.handleChange}
-                    >
-                      <option>Select</option>
-                      <option value={true}>Active</option>
-                      <option value={false}>InActive</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            
-            </div>
-          </div>
-          <div className="card-footer">
-            <div className="row float-right p-3">
-              {this.props.isLoading ? (
-                <button className="btn btn-grd-disabled mr-2" disabled>
-                  Saving...!
-                </button>
-              ) : (
-                <button
-                  onClick={this.onSaveData}
-                  className="btn btn-grd-disabled mr-2"
-                >
-                  <i className="icofont icofont-save"></i> Save
-                </button>
-              )}
-              <Link to={"/products"} className="btn btn-outline-dark">
-                Cancel
-              </Link>
-            </div>
-          </div>
-        </div>
-      ) : null
-    ) : (
-      <div className="">
+    console.log('MEDIA',this.state.imageData);
+    return <>
+       <div className="">
         <div className="card-body">
           <div className="row">
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Name</label>
-                <div className="col-sm-9">
-                  <input
+            <div className="col-md-10">
+              <div className="INP_FIELD">
+                <label htmlFor="name">Name <b>*</b></label>
+                <input
                     type="text"
-                    className="form-control"
+                    id='name'
                     name="name"
-                    placeholder="Name"
+                    placeholder="Enter Product Name"
                     onChange={this.handleChange}
                     value={this.state.name}
                   />
-                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">SKU</label>
-                <div className="col-sm-9">
-                  <input
+            <div className="col-md-2">
+              <div className="INP_FIELD">
+                <label htmlFor="SKU">SKU <b>*</b></label>
+                <input
                     type="text"
-                    className="form-control"
-                    name="sku"
-                    id="sku"
+                    id='SKU'
+                    name="SKU"
                     placeholder="SKU"
                     onChange={this.handleChange}
-                    value={this.state.sku}
+                    value={this.state.SKU}
                   />
-                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Category</label>
-                <div className="col-sm-9">
-                  <select
+            
+            <div className="col-md-4">
+              <div className="INP_FIELD">
+                <label htmlFor="categoryId">Category <b>*</b></label>
+                <select
                     name="categoryId"
                     onChange={this.handleChange}
                     value={this.state.categoryId}
-                    className="form-control"
                   >
-                    <option>Select Category</option>
-                    {this.state.categoryList !== undefined
-                      ? this.state.categoryList.map((category) => (
+                    <option> - Select Category - </option>
+                    {this.state.category_list !== undefined
+                      ? this.state.category_list.map((category) => (
                           <option value={category.id}>{category.name}</option>
                         ))
                       : ""}
                   </select>
-                </div>
               </div>
             </div>
-          
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Brand</label>
-                <div className="col-sm-9">
-                <input
-                    type="text"
-                    className="form-control"
-                    name="brand"
-                    id="brand"
-                    placeholder="Brand"
+            <div className="col-md-4">
+              <div className="INP_FIELD">
+                <label htmlFor="subCategoryId">Sub Category</label>
+                <select
+                    name="subCategoryId"
                     onChange={this.handleChange}
-                    value={this.state.brand}
-                  />
-                </div>
+                    value={this.state.subCategoryId}
+                  >
+                    <option> - Select Category - </option>
+                    {this.state.subcategory_list !== undefined
+                      ? this.state.subcategory_list.map((subcategory) => (
+                          <option value={subcategory.id}>{subcategory.name}</option>
+                        ))
+                      : ""}
+                  </select>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="INP_FIELD">
+                <label htmlFor="brandId">Brand</label>
+                <select
+                    name="brandId"
+                    onChange={this.handleChange}
+                    value={this.state.brandId}
+                  >
+                    <option> - Select Brand - </option>
+                    {this.state.brand_list !== undefined
+                      ? this.state.brand_list.map((brand) => (
+                          <option value={brand.id}>{brand.name}</option>
+                        ))
+                      : ""}
+                  </select>
               </div>
             </div>
             
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Unit</label>
-                <div className="col-sm-9">
-                  <input
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="validity">Validity <b>*</b></label>
+                <input
+                    type="date"
+                    id='validity'
+                    name="validity"
+                    onChange={this.handleChange}
+                    value={this.state.validity}
+                  />
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="barcode">Barcode <b>*</b></label>
+                <input
                     type="number"
-                    className="form-control"
-                    name="unit"
-                    placeholder="Unit"
+                    id='barcode'
+                    name="barcode"
+                    placeholder="Barcode No."
                     onChange={this.handleChange}
-                    value={this.state.unit}
+                    value={this.state.barcode}
                   />
-                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">MRP</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="mrp"
-                    placeholder="MRP(Max. Retail Price)"
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="availableQuantity">Available Qty. <b>*</b> </label>
+                <input
+                    type="number"
+                    id='availableQuantity'
+                    name="availableQuantity"
+                    placeholder="Available Quantity"
                     onChange={this.handleChange}
-                    value={this.state.mrp}
+                    value={this.state.availableQuantity}
                   />
-                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">PTC</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="ptc"
-                    placeholder="PTC()"
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="minimumOrderQuantity">Min. Order Qty.</label>
+                <input
+                    type="number"
+                    id='minimumOrderQuantity'
+                    name="minimumOrderQuantity"
+                    placeholder="Minimum Order Quantity"
                     onChange={this.handleChange}
-                    value={this.state.ptc}
+                    value={this.state.minimumOrderQuantity}
                   />
-                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">PTD</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="ptd"
-                    placeholder="PTD()"
-                    onChange={this.handleChange}
-                    value={this.state.ptd}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">SGST</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="sgst"
-                    placeholder="SGST()"
-                    onChange={this.handleChange}
-                    value={this.state.sgst}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">CGST</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="cgst"
-                    placeholder="CGST()"
-                    onChange={this.handleChange}
-                    value={this.state.cgst}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">IGST</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="igst">IGST <b>*</b></label>
+                <input
+                    type="number"
+                    id='igst'
                     name="igst"
-                    placeholder="IGST()"
+                    placeholder="IGST Amount"
                     onChange={this.handleChange}
                     value={this.state.igst}
                   />
-                </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Expiry Date</label>
-                <div className="col-sm-9">
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="expirydate"
-                    placeholder="Expiry Date"
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="sgst">SGST</label>
+                <input
+                    type="number"
+                    id='sgst'
+                    name="sgst"
+                    placeholder="SGST Amount"
                     onChange={this.handleChange}
-                    value={this.state.expirydate}
+                    value={this.state.sgst}
                   />
-                </div>
               </div>
             </div>
-            {/* <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Key Words</label>
-                <div className="col-sm-9">
-                  <Select
-                    styles={customStyles}
-                    isMulti={true}
-                    value={categories}
-                    getOptionLabel={(option) => `${option.category}`}
-                    getOptionValue={(option) => `${option.categoryID}`}
-                    onChange={this.handleSelectCat}
-                    options={this.state.packageCategory}
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="cgst">CGST</label>
+                <input
+                    type="number"
+                    id='cgst'
+                    name="cgst"
+                    placeholder="CGST Amount"
+                    onChange={this.handleChange}
+                    value={this.state.cgst}
                   />
-                </div>
               </div>
-            </div>*/}
-          </div> 
-          <div className="row">
+            </div>
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="packSize">Pack Size </label>
+                <input
+                    type="text"
+                    id='packSize'
+                    name="packSize"
+                    placeholder="Pack Size"
+                    onChange={this.handleChange}
+                    value={this.state.packSize}
+                  />
+              </div>
+            </div>
+
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="baseUOMId">Base UOM <b>*</b></label>
+                  <select
+                    name="baseUOMId"
+                    onChange={this.handleChange}
+                    value={this.state.baseUOMId}
+                  >
+                    <option>- Select UOM - </option>
+                    {this.state.uom_list !== undefined
+                      ? this.state.uom_list.map((uom) => (
+                          <option value={uom.id}>{uom.name}</option>
+                        ))
+                      : ""}
+                  </select>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="grossWeight">Gross Weight <b>*</b></label>
+                <input
+                    type="text"
+                    id='grossWeight'
+                    name="grossWeight"
+                    placeholder="Gross Weight"
+                    onChange={this.handleChange}
+                    value={this.state.grossWeight}
+                  />
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="netWeight">Net Weight <b>*</b></label>
+                <input
+                    type="text"
+                    id='netWeight'
+                    name="netWeight"
+                    placeholder="Net Weight"
+                    onChange={this.handleChange}
+                    value={this.state.netWeight}
+                  />
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="INP_FIELD">
+                <label htmlFor="netWeight">Bags</label>
+                <select
+                    name="bagId"
+                    onChange={this.handleChange}
+                    value={this.state.bagId}
+                  >
+                    <option> - Select Bag - </option>
+                    {this.state.bags_list !== undefined
+                      ? this.state.bags_list.map((bag) => (
+                          <option value={bag.id}>{bag.bagType}/{bag.bagSize}</option>
+                        ))
+                      : ""}
+                  </select>
+              </div>
+            </div>
+           
+            <div className="col-md-6">
+              <div className="INP_FIELD">
+                <label htmlFor="inrPrice">INR Price <b>*</b></label>
+                <input
+                    type="text"
+                    id='inrPrice'
+                    name="inrPrice"
+                    placeholder="INR Price"
+                    onChange={this.handleChange}
+                    value={this.state.inrPrice}
+                  />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="INP_FIELD">
+                <label htmlFor="usdPrice">USD Price <b>*</b></label>
+                <input
+                    type="text"
+                    id='usdPrice'
+                    name="usdPrice"
+                    placeholder="USD Price"
+                    onChange={this.handleChange}
+                    value={this.state.usdPrice}
+                  />
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="INP_FIELD">
+                <label htmlFor="netWeight">Country <b>*</b></label>
+                <select
+                    name="countryId"
+                    onChange={this.handleChange}
+                    value={this.state.countryId}
+                  >
+                    <option>- Select Country - </option>
+                    {this.state.country_list !== undefined
+                      ? this.state.country_list.map((country) => (
+                          <option value={country.id}>{country.name}</option>
+                        ))
+                      : ""}
+                  </select>
+              </div>
+            </div>
+            <div className="col-md-8">
+              <div className="INP_FIELD">
+                <label htmlFor="netWeight">City <b>*</b></label>
+                <select
+                    name="cityId"
+                    onChange={this.handleChange}
+                    value={this.state.cityId}
+                  >
+                    <option>- Select City - </option>
+                    {this.state.city_list !== undefined
+                      ? this.state.city_list.map((city) => (
+                          <option value={city.id}>{city.name}</option>
+                        ))
+                      : ""}
+                  </select>
+              </div>
+            </div>
             <div className="col-md-12">
-              <div className="form-group row">
-                <label className="col-sm-2 col-form-label">Gallery</label>
-                <div className="col-sm-10">
-                  <div className="row">
-                    <AddGalleryImage
-                      uploadGalleryImage={this.uploadGalleryImage}
-                    />
-                    <AddGalleryImage
-                      uploadGalleryImage={this.uploadGalleryImage}
-                    />
-                    <AddGalleryImage
-                      uploadGalleryImage={this.uploadGalleryImage}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Short Desc.</label>
-                <div className="col-sm-9">
-                  <ReactQuill
-                    value={this.state.description}
-                    onChange={this.onHandleDescriptionChange}
-                    style={{ height: "200px", marginBottom: "5%" }}
+              <div className="INP_FIELD">
+                <label htmlFor="keyFeatures">Key Features</label>
+                <textarea
+                    type="text"
+                    id='keyFeatures'
+                    name="keyFeatures"
+                    placeholder="Key Features"
+                    onChange={this.handleChange}
+                    value={this.state.keyFeatures}
                   />
-                </div>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Long Desc.</label>
-                <div className="col-sm-9">
-                  <ReactQuill
-                    value={this.state.description}
-                    onChange={this.onHandleDescriptionChange}
-                    style={{ height: "200px", marginBottom: "5%" }}
+              <div className="INP_FIELD">
+                <label htmlFor="keywords1">Keywords 1 <b>*</b></label>
+                <textarea
+                    type="text"
+                    id='keywords1'
+                    name="keywords1"
+                    placeholder="Keywords 1"
+                    onChange={this.handleChange}
+                    value={this.state.keywords1}
                   />
-                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="INP_FIELD">
+                <label htmlFor="keywords2">Keywords 2</label>
+                <textarea
+                    type="text"
+                    id='keywords2'
+                    name="keywords2"
+                    placeholder="Keywords 2"
+                    onChange={this.handleChange}
+                    value={this.state.keywords2}
+                  />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="INP_FIELD">
+                <label htmlFor="keywords2">Short Description <b>*</b></label>
+                <ReactQuill
+                    value={this.state.shortDescription}
+                    onChange={this.onHandleShortDescriptionChange}
+                    className='ReactQLL'
+                  />
+              </div>
+            </div>
+
+            <div className="col-md-6">
+              <div className="INP_FIELD">
+                <label htmlFor="keywords2">Long Description</label>
+                <ReactQuill
+                    value={this.state.longDescription}
+                    onChange={this.onHandleLongDescriptionChange}
+                    className='ReactQLL'
+                  />
               </div>
             </div>
           </div>
         </div>
         <div className="card-footer">
-          <div className="row float-right p-3">
+          <div className="row float-right p-3 FOOTER_BTNS">
             {this.props.isLoading ? (
-              <button className="btn btn-grd-disabled mr-2" disabled>
+              <button disabled>
                 Saving...!
               </button>
             ) : (
               <button
-                onClick={this.onSaveData}
-                className="btn btn-grd-disabled mr-2"
+                onClick={this.onNextStep}
               >
                 <i className="icofont icofont-save"></i> Save
               </button>
             )}
-            <Link to={"/products"} className="btn btn-outline-dark">
+            <Link to={"/products"}>
               Cancel
             </Link>
           </div>
         </div>
       </div>
-    );
+    </>
+  
   }
 }
+
 const mapStateToProps = (state) => {
   return {
-    loginData: state.login,
+    category_list: state.category.category_list,
+    subcategory_list: state.subCategory.subcategory_list,
+    uom_list: state.uomTypes.uom_list,
+    brand_list: state.Brands.brand_list,
+    city_list: state.city.city_list,
+    country_list: state.country.country_list,
+    bags_list: state.Bags.bags_list,
   };
 };
+
+
 ProductAdd.propTypes = {
-  login: PropTypes.object.isRequired,
+  fetchCategoryList: PropTypes.func.isRequired,
+  fetchSubCategoryList: PropTypes.func.isRequired,
+  fetchUOMList: PropTypes.func.isRequired,
+  fetchBrandList: PropTypes.func.isRequired,
+  fetchcityList: PropTypes.func.isRequired,
+  fetchCountryList: PropTypes.func.isRequired,
+  fetchBagList: PropTypes.func.isRequired,
+  ProductADD: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps, {})(ProductAdd);
+
+
+export default connect(mapStateToProps, {
+  fetchCategoryList,
+  fetchSubCategoryList,
+  fetchUOMList,
+  fetchBrandList,
+  fetchcityList,
+  fetchCountryList,
+  fetchBagList,
+  ProductADD,
+})(ProductAdd);

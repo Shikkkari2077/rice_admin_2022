@@ -39,14 +39,14 @@ const categoryReducer = (state = initialState, action) => {
         isAdding: false,
         error: action.payload.status,
       };
-      case FETCH_CATG_DETAIL:
+    case FETCH_CATG_DETAIL:
       return {
         ...state,
         category_det: action.payload,
         isLoading: false,
         error: action.payload.status,
       };
-      case FETCH_CATG_UPDATE:
+    case FETCH_CATG_UPDATE:
       return {
         ...state,
         category_upd: action.payload,

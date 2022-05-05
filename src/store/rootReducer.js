@@ -32,6 +32,10 @@ import SellerCustomerReducer from './SellerCustomerMapping/SellerCustomerReducer
 import salesmanReducer from './SalesMan/salesmanReducer';
 import beatReducer from './Beat/BeatReducer'
 import DMSReducer from './DMS/DMSReducer';
+import UOMReducer from './UOM/uomReducer';
+import brandReducer from './Brand/brandReducers';
+import bagReducer from './Bag/bagReducers';
+import portReducer from './Port/portReducer';
 const rootReducer = combineReducers({
 	login: usersReducer,
 	category: categoryReducer,
@@ -64,5 +68,9 @@ const rootReducer = combineReducers({
 	salesman:salesmanReducer,
 	beat:beatReducer,
 	dmsOrders:DMSReducer,
+	uomTypes:UOMReducer,
+	Brands:brandReducer,
+	Bags:bagReducer,
+	Ports:portReducer,
 });
 export default rootReducer;

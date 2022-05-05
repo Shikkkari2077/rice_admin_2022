@@ -7,7 +7,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { CategoryAddOne,
          getCategoryDetails,
-         updateCategory } from "../../store/index";
+         updateCategory, 
+         fetchProductDepartmentList,
+} from "../../store/index";
 
 class CategoryAdd extends React.Component {
   state = {
@@ -36,19 +38,23 @@ class CategoryAdd extends React.Component {
     else{
       console.log('notget')
     }
+    this.props.fetchProductDepartmentList()
   }
   componentWillReceiveProps(nextProps){
    console.log('hello',nextProps.category_det)
-  
-   this.setState({
-    name:nextProps.category_det[0].name,
-    description:nextProps.category_det[0].description,
-    image:nextProps.category_det[0].Medium ? nextProps.category_det[0].Medium.url : '',
-    mediumId:nextProps.category_det[0].MediumId,
-    priority:nextProps.category_det[0].priority,
-    status:nextProps.category_det[0].status
-     // currency:nextProps.category_det[0].
-   })
+
+   this.setState({product_department:nextProps.product_department})
+    
+   if(this.props.category_id){
+    this.setState({
+      name:nextProps.category_det[0].name,
+      description:nextProps.category_det[0].description,
+      productDepartmentID:nextProps.category_det[0].productDepartmentID,
+      visibility:nextProps.category_det[0].visibility,
+      priority:nextProps.category_det[0].priority,
+      status:nextProps.category_det[0].status
+     })
+   }
    console.log('data',this.state.data)
  }
   onHandleDescriptionChange = (value) => {
@@ -70,24 +76,29 @@ class CategoryAdd extends React.Component {
     const name= this.state.name
     const description= this.state.description
     const priority=this.state.priority
-    const status=this.state.status
+    const productDepartmentID=this.state.productDepartmentID
+    const status=this.state.status=='true'?true:false
+    const visibility=this.state.visibility=='true'?true:false
+    
   this.props.updateCategory(
     CategoryId,
     name,
     priority,
+    productDepartmentID,
     description,
     status,
-    this.state.mediaID,
-    this.state.imagestatus,
+    visibility
     )
   }
   uploadMedia = () => {
     const name=this.state.name
     const description=this.state.description
-    const media=this.state.mediaID
     const priority=this.state.priority
-    const status=this.state.status
-    this.props.CategoryAddOne(name,description,priority,status,media)
+    const productDepartmentID=this.state.productDepartmentID
+    const status=this.state.status=='true'?true:false
+    const visibility=this.state.visibility=='true'?true:false
+
+    this.props.CategoryAddOne(name,description,priority,productDepartmentID,status,visibility)
   } 
   
   open=()=>{
@@ -110,6 +121,7 @@ class CategoryAdd extends React.Component {
   }
 
   render() {
+    console.log('fsadfdsf',this.state.product_department);
     return (
       <div className="">
           <div className="card-body">
@@ -189,28 +201,24 @@ class CategoryAdd extends React.Component {
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="row">
-                  <div className="col-sm-3">Display Image</div>
+                <div className="form-group row">
+                  <label className="col-sm-3 col-form-label">Product Department</label>
                   <div className="col-sm-9">
-                    <form
-                      id="categoryImage"
-                      name="categoryImage"
-                      encType="multipart/form-data"
-                      className="text-capitalize"
+                    <select
+                      name="productDepartmentID"
+                      className="form-control"
+                      value={this.state.productDepartmentID}
+                      onChange={this.handleChange}
                     >
-                      <div className="form-group">
-                      <button
-                        onClick={this.open}
-                        className="form-control">
-                          Open Gallery
-
-                        </button>
-                      </div>
-                    </form>
+                      <option> - Select Department - </option>
+                      {this.state.product_department!==undefined?
+                        this.state.product_department.map(department=>(
+                      <option value={department.id}>{department.name}</option>
+                      )):null}
+                    </select>
                   </div>
                 </div>
               </div>
-              
               <div className="col-md-6">
                 <div className="form-group row">
                   <label className="col-sm-3 col-form-label">Status</label>
@@ -221,35 +229,32 @@ class CategoryAdd extends React.Component {
                       value={this.state.status}
                       onChange={this.handleChange}
                     >
-                      <option>Select</option>
+                      <option> - Select - </option>
                       <option value={true}>Active</option>
                       <option value={false}>InActive</option>
                     </select>
                   </div>
                 </div>
               </div>
-              <div sclassName="col-md-6">
-                <div id="category_image_label" className="pt-2">
-                  {this.state.image ? (
-                    this.state.image !== null ||
-                    this.state.image !== undefined ||
-                    this.state.image !== {} ? (
-                      <img
-                        src={this.state.image}
-                        alt=""
-                        className="img-100"
-                        onError={(e) => {
-                          e.target.src = "";
-                        }}
-                      />
-                    ) : (
-                      ""
-                    )
-                  ) : (
-                    ""
-                  )}
+
+              <div className="col-md-6">
+                <div className="form-group row">
+                  <label className="col-sm-3 col-form-label">Visibility</label>
+                  <div className="col-sm-9">
+                    <select
+                      name="visibility"
+                      className="form-control"
+                      value={this.state.visibility}
+                      onChange={this.handleChange}
+                    >
+                      <option> - Select - </option>
+                      <option value={true}>YES</option>
+                      <option value={false}>NO</option>
+                    </select>
+                  </div>
                 </div>
               </div>
+              
             </div>
 
             {/* <div className="row">
@@ -302,6 +307,7 @@ const mapStateToProps = (state) => {
   return {
     category_res:state.category.category_res,
     category_det:state.category.category_det,
+    product_department:state.product.product_department,
     isLoading: state.category.isLoading,
     isAuthUser: state.isAuthUser,
     error: state.error,
@@ -312,8 +318,8 @@ CategoryAdd.propTypes = {
   CategoryAddOne: PropTypes.func.isRequired,
   getCategoryDetails:PropTypes.func.isRequired,
   updateCategory:PropTypes.func.isRequired,
-  postMedia:PropTypes.func.isRequired,
+  fetchProductDepartmentList:PropTypes.func.isRequired,
   login: PropTypes.object.isRequired,
   error: PropTypes.object.isRequired,
 };
-export default connect(mapStateToProps, {CategoryAddOne,getCategoryDetails,updateCategory})(CategoryAdd);
+export default connect(mapStateToProps, {CategoryAddOne,getCategoryDetails,updateCategory, fetchProductDepartmentList})(CategoryAdd);

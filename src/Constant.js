@@ -1,7 +1,7 @@
 module.exports = {
   getAPI: function () {
     
-    return "http://oov2rice.infoware.xyz/api"
+    return "https://oov2rice.infoware.xyz/api"
     // return "https://api.fortunebusiness.in/api"
   
   },

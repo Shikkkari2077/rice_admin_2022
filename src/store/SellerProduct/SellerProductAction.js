@@ -65,15 +65,11 @@ export const fetchSellerProductList = (datastart, datarange) => {
 
     axios
       .post(
-        Constant.getAPI() + "/product/listbySeller",
-        {
-          startRange: datastart,
-          recordLimit: datarange,
-        },
+        Constant.getAPI() + "/sellerproduct/get",{},
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("seller_auth")}`,
+            Authorization: `Bearer ${localStorage.getItem('role')=='admin'?localStorage.getItem('superadmin_auth'):localStorage.getItem('seller_auth')}`,
           },
         }
       )
@@ -88,6 +84,22 @@ export const fetchSellerProductList = (datastart, datarange) => {
       });
   };
 };
+
+export const AddSellerProduct = (data) => (dispatch) => {
+  dispatch(getsellerProductReq);
+
+  axios.post(Constant.getAPI() + '/sellerproduct/add',data,{
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': `Bearer ${localStorage.getItem("seller_auth")}`,
+    },
+  })
+  .then(res=>{
+    console.log(res.data);
+  }).catch(err=>{
+    console.log(err);
+  })
+}
 
 export const fetchSellerProductAList = (
   range,

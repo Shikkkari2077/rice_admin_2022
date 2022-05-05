@@ -7,7 +7,7 @@ import MUIDataTable from "mui-datatables";
 import Toggle from "react-toggle";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchCategoryList ,updateStatusCategory} from "../../store/index";
+import { fetchCategoryList ,updateStatusCategory, CategoryDelete} from "../../store/index";
 import { Tooltip, Button,Switch } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import AlertDialog from "../../common/DownloadOption";
@@ -84,7 +84,7 @@ class CategoryList extends React.Component {
     this.props.fetchCategoryList();
   }
   imgLoadError = (event) => {
-    event.target.src = "./assets/images/icon.png";
+    // event.target.src = "./assets/images/icon.png";
   };
   onError = () => {
     Swal.fire({
@@ -192,6 +192,14 @@ openModel = () => {
     console.log(data)
     this.props.updateStatusCategory(data)
   }
+
+  DeleteCategory = (id) => {
+    var data = {
+      CategoryId:id
+    }
+    this.props.CategoryDelete(data)
+  }
+
   render() {
     const AntSwitch = withStyles((theme) => ({
       root: {
@@ -265,32 +273,32 @@ openModel = () => {
           },
         },
       },
-      {
-        name: "Medium",
-        label: "Category Image",
-        options: {
-          filter: false,
-          sort: false,
-          customBodyRender: (Medium, tableMeta) => {
-            return (
-              <div>
-                {
-                  <img
-                    src={
-                      Medium !== undefined && Medium !== null && Medium !== ""
-                        ? Medium.url
-                        : "./assets/images/icon.png"
-                    }
-                    alt=""
-                    className="img-40"
-                    onError={this.imgLoadError}
-                  />
-                }
-              </div>
-            );
-          },
-        },
-      },
+      // {
+      //   name: "Medium",
+      //   label: "Category Image",
+      //   options: {
+      //     filter: false,
+      //     sort: false,
+      //     customBodyRender: (Medium, tableMeta) => {
+      //       return (
+      //         <div>
+      //           {
+      //             <img
+      //               src={
+      //                 Medium !== undefined && Medium !== null && Medium !== ""
+      //                   ? Medium.url
+      //                   : "./assets/images/icon.png"
+      //               }
+      //               alt=""
+      //               className="img-40"
+      //               onError={this.imgLoadError}
+      //             />
+      //           }
+      //         </div>
+      //       );
+      //     },
+      //   },
+      // },
       {
         name: "name",
         label: "Category Name",
@@ -315,7 +323,8 @@ openModel = () => {
             checked={status === true ? true : false}
             name="checkedC"
             value={status} 
-            onClick={()=>this.handleStatus(this,status, tableMeta.rowData[0] )} />   
+            // onClick={()=>this.handleStatus(this,status, tableMeta.rowData[0] )} 
+            />   
   
             );
           },
@@ -323,7 +332,7 @@ openModel = () => {
       },
       {
         name: "id",
-        label: "SubCategory",
+        label: "Sub Category",
         options: {
           //display:localStorage.getItem('CategoryUpdate') === 'true'?true:false,
           filter: false,
@@ -366,6 +375,11 @@ openModel = () => {
                 >
                   <i className="f-22 icofont icofont-ui-edit text-custom"></i>
                 </Link>
+                {/* <span
+                  className="m-r-15 text-muted"
+                >
+                  <i onClick={()=>this.DeleteCategory(id)} className="f-22 icofont icofont-ui-delete text-danger"></i>
+                </span> */}
               </div>
             );
           },
@@ -596,6 +610,6 @@ const mapStateToProps = (state) => {
 };
 CategoryList.propTypes = {
   fetchCategoryList: PropTypes.func.isRequired,
-  // category: PropTypes.object.isRequired,
+  CategoryDelete: PropTypes.object.isRequired,
 };
-export default connect(mapStateToProps, { fetchCategoryList ,updateStatusCategory})(CategoryList);
+export default connect(mapStateToProps, { fetchCategoryList ,updateStatusCategory, CategoryDelete})(CategoryList);

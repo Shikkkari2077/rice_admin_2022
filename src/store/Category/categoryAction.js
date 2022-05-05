@@ -51,6 +51,7 @@ export const getCategoryError = (error) => {
   };
 };
 
+
 export const fetchCategoryList = () => {
   return (dispatch) => {
     dispatch(getCategoryReq);
@@ -104,7 +105,7 @@ export const fetchCategoryList = () => {
 //       });
 //   };
 // };
-export const CategoryAddOne = (name, description,priority,status, Medium) => {
+export const CategoryAddOne = (name, description,priority,productDepartmentID,status, visibility) => {
   return (dispatch) => {
     dispatch(getCategoryReq);
  
@@ -115,8 +116,8 @@ export const CategoryAddOne = (name, description,priority,status, Medium) => {
               name: name,
               description: description,
               priority:priority,
-              MediumId: Medium,
-              SuperCategoryId: null,
+              productDepartmentID:productDepartmentID,
+              visibility: visibility,
               status:status
             },
             {
@@ -138,6 +139,57 @@ export const CategoryAddOne = (name, description,priority,status, Medium) => {
               if (category_res.success === true) {
                 Swal.fire({
                   title: "Added Successfully",
+                  icon: "success",
+                  text: "",
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ok",
+                }).then((value) => {
+                  if (value) {
+                    window.location.href = "#/category";
+                    window.location.reload();
+                  }
+                });
+              }
+            }
+          })
+          .catch((err) => {
+            const errMsg = err.message;
+            console.log(err);
+            dispatch(getCategoryError(err));
+          });
+     
+     
+  };
+};
+
+export const CategoryDelete = (data) => {
+  return (dispatch) => {
+    dispatch(getCategoryReq);
+ 
+        axios
+          .delete(
+            Constant.getAPI() + "/category/delete",
+            data,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem(
+                  "superadmin_auth"
+                )}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            console.log(res.status);
+            if (res.status === 200) {
+              const category_res = res.data;
+              // dispatch(addCategorySucess(category_res));
+              // }
+              if (category_res.success === true) {
+                Swal.fire({
+                  title: "Deleted Successfully",
                   icon: "success",
                   text: "",
                   confirmButtonColor: "#3085d6",
@@ -194,29 +246,26 @@ export const getCategoryDetails = (id) => {
 };
 
 export const updateCategory = (
-  CategoryId,
-   name,
-   priority,
-   description,
-   status,
-   mediumId,
-   imagestatus) => {
+    CategoryId,
+    name,
+    priority,
+    productDepartmentID,
+    description,
+    status,
+    visibility,) => {
   return (dispatch) => {
     dispatch(getCategoryReq);
 
-    if(imagestatus){
-  
-      
         axios
           .post(
-            Constant.getAPI() + "/category/edit",
+            Constant.getAPI() + "/category/update",
             {
               CategoryId: CategoryId,
               name: name,
               description: description,
               priority:priority,
-              MediumId: mediumId,
-              SuperCategoryId: null,
+              productDepartmentID: productDepartmentID,
+              visibility: visibility,
               status:status
             },
             {
@@ -270,74 +319,7 @@ export const updateCategory = (
             console.log(err);
             dispatch(getCategoryError(err));
           });
-    
-    }
-    else{
-        // dispatch(addCategorySucess(category_res));
-        axios
-          .post(
-            Constant.getAPI() + "/category/edit",
-            {
-              CategoryId: CategoryId,
-              name: name,
-              description: description,
-              priority:priority,
-              status:status
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem( "superadmin_auth" )}`,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            console.log(res.status);
-            if (res.status === 200) {
-              const category_res = res.data;
-              dispatch(addCategorySucess(category_res));
-              // }
-              if (category_res.success === true) {
-                Swal.fire({
-                  title: "Updated Successfully",
-                  icon: "success",
-                  text: "",
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Ok",
-                }).then((value) => {
-                  if (value) {
-                    dispatch(fetchCategoryList)
-                    window.location.href = "#/category";
-                   // window.location.reload();
-                  }
-                });
-              } else {
-                Swal.fire({
-                  title: "Something Went wrong",
-                  icon: "error",
-                  text: "",
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Ok",
-                }).then((value) => {
-                  if (value) {
-                    dispatch(fetchCategoryList)
-
-                    window.location.href = "#/category";
-                   // window.location.reload();
-                  }
-                });
-              }
-            }
-          })
-          .catch((err) => {
-            const errMsg = err.message;
-            console.log(err);
-            dispatch(getCategoryError(err));
-          });
-    }
+  
   };
 };
 
