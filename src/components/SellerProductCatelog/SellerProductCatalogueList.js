@@ -837,7 +837,7 @@ class SellerProductCatalogueList extends React.Component {
             
               <div>
               <AntSwitch
-                checked={available == 1 ? true : false}
+                checked={available}
                 onChange={this.handleActiveChange.bind(this,tableMeta.rowData[21],tableMeta.rowData[22].id)}
               />
               </div>
@@ -847,17 +847,17 @@ class SellerProductCatalogueList extends React.Component {
       },
   
       {
-        name: "ProductId",
+        name: "id",
         label: "Action",
         options: {
           display:localStorage.getItem('SellerProductUpdate')=='true'?true:false,
           filter: false,
           sort: false,
-          customBodyRender: (ProductId, tableMeta ) => {
+          customBodyRender: (id, tableMeta ) => {
             return (
               <div>
                 <Link
-                  to={"/seller-product-catalogue/add/"+ProductId+"/"+tableMeta.rowData[22].id}
+                  to={"/seller-product-catalogue/add/"+id+"/"+tableMeta.rowData[22].id}
                   className="m-r-15 text-muted"
                   data-toggle="tooltip"
                   data-placement="top"

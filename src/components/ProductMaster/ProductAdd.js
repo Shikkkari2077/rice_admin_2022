@@ -16,6 +16,8 @@ import { fetchCategoryList,
         fetchCountryList,
         fetchBagList,
         ProductADD,
+        fetchProductList,
+        ProductUpdate,
  } from "../../store/index";
 import axios from "axios";
 
@@ -33,19 +35,39 @@ class ProductAdd extends React.Component {
     var F_VALID = VALID.getTime()
 
     if(this.props.product_id){
-      // let MEDIA = media.concat(media2)
-
-      // let MEDIA2 = []
-      // if(this.state.imageData2!==[] && this.state.imageData2!==undefined && this.state.imageData2!==null){
-      //   let Data = this.state.imageData2
-      //   var SavedMedia = Data.map(data2=>data2.id)
-      //       SavedMedia = new Set(SavedMedia)
-      //   MEDIA2 = [...SavedMedia]
-      // }
      
+      var data = {
+        name:this.state.name,
+        longDescription:this.state.longDescription,
+        shortDescription:this.state.shortDescription,
+        igst:this.state.igst,
+        sgst:this.state.sgst,
+        cgst:this.state.cgst,
+        SKU:parseInt(this.state.SKU),
+        availableQuantity:parseInt(this.state.availableQuantity),
+        minimumOrderQuantity:parseInt(this.state.minimumOrderQuantity),
+        usdPrice:parseInt(this.state.usdPrice),
+        inrPrice:parseInt(this.state.inrPrice),
+        barcode:this.state.barcode,
+        available:true,
+        validity:F_VALID,
+        packSize:this.state.packSize,
+        grossWeight:this.state.grossWeight,
+        netWeight:this.state.netWeight,
+        baseUOMId:this.state.baseUOMId,
+        brandId:this.state.brandId,
+        categoryId:this.state.categoryId,
+        subCategoryId:this.state.subCategoryId,
+        keyFeatures:this.state.keyFeatures,
+        keywords1:this.state.keywords1,
+        keywords2:this.state.keywords2,
+        cityId:this.state.cityId,
+        bagId:this.state.bagId,
+        countryId:this.state.countryId,
+      };
       
   
-      // this.props.updatePOST(data)
+      this.props.ProductUpdate(data,this.props.product_id)
     }else{
       var data = {
         name:this.state.name,
@@ -70,7 +92,6 @@ class ProductAdd extends React.Component {
         categoryId:this.state.categoryId,
         subCategoryId:this.state.subCategoryId,
         keyFeatures:this.state.keyFeatures,
-        // productMediumId: mediaID,
         keywords1:this.state.keywords1,
         keywords2:this.state.keywords2,
         cityId:this.state.cityId,
@@ -90,6 +111,7 @@ class ProductAdd extends React.Component {
         this.props.fetchcityList()
         this.props.fetchCountryList()
         this.props.fetchBagList()
+        this.props.fetchProductList()
         console.log('Triggered');
   }
 
@@ -106,6 +128,44 @@ class ProductAdd extends React.Component {
       bags_list:nextProps.bags_list,
     })
 
+    this.getSingleProduct(nextProps.product_list)
+
+  }
+
+  getSingleProduct = (products) => {
+    if(this.props.product_id){
+      var prod = products.filter(product=>product.id === this.props.product_id)[0]
+      console.log('prod',prod);
+      this.setState({
+        name:prod.name,
+        longDescription:prod.longDescription,
+        shortDescription:prod.shortDescription,
+        igst:prod.igst,
+        sgst:prod.sgst,
+        cgst:prod.cgst,
+        SKU:prod.SKU,
+        availableQuantity:prod.availableQuantity,
+        minimumOrderQuantity:prod.minimumOrderQuantity,
+        usdPrice:prod.usdPrice,
+        inrPrice:prod.inrPrice,
+        barcode:prod.barcode,
+        // available:true,
+        validity:prod.validity,
+        packSize:prod.packSize,
+        grossWeight:prod.grossWeight,
+        netWeight:prod.netWeight,
+        baseUOMId:prod.BaseUOMId,
+        brandId:prod.brandId,
+        categoryId:prod.ProductCategories.length>0?prod.ProductCategories[0].CategoryId:null,
+        subCategoryId:prod.ProductCategories.length>0?prod.ProductCategories[0].SubCategoryId:null,
+        keyFeatures:prod.keyFeatures,
+        keywords1:prod.keywords1,
+        keywords2:prod.keywords2,
+        cityId:prod.cityId,
+        bagId:prod.bagId,
+        countryId:prod.countryId,
+      })
+    }
   }
 
   
@@ -411,7 +471,7 @@ class ProductAdd extends React.Component {
             </div>
             <div className="col-md-4">
               <div className="INP_FIELD">
-                <label htmlFor="netWeight">Country <b>*</b></label>
+                <label htmlFor="countryId">Country <b>*</b></label>
                 <select
                     name="countryId"
                     onChange={this.handleChange}
@@ -428,7 +488,7 @@ class ProductAdd extends React.Component {
             </div>
             <div className="col-md-8">
               <div className="INP_FIELD">
-                <label htmlFor="netWeight">City <b>*</b></label>
+                <label htmlFor="cityId">City <b>*</b></label>
                 <select
                     name="cityId"
                     onChange={this.handleChange}
@@ -509,13 +569,13 @@ class ProductAdd extends React.Component {
           <div className="row float-right p-3 FOOTER_BTNS">
             {this.props.isLoading ? (
               <button disabled>
-                Saving...!
+                {this.props.product_id?'Updating':'Saving'}...!
               </button>
             ) : (
               <button
                 onClick={this.onNextStep}
               >
-                <i className="icofont icofont-save"></i> Save
+                <i className="icofont icofont-save"></i>{this.props.product_id?'Update':'Save'}
               </button>
             )}
             <Link to={"/products"}>
@@ -538,6 +598,7 @@ const mapStateToProps = (state) => {
     city_list: state.city.city_list,
     country_list: state.country.country_list,
     bags_list: state.Bags.bags_list,
+    product_list: state.product.product_list,
   };
 };
 
@@ -551,6 +612,8 @@ ProductAdd.propTypes = {
   fetchCountryList: PropTypes.func.isRequired,
   fetchBagList: PropTypes.func.isRequired,
   ProductADD: PropTypes.func.isRequired,
+  fetchProductList: PropTypes.func.isRequired,
+  ProductUpdate: PropTypes.func.isRequired,
 };
 
 
@@ -563,4 +626,6 @@ export default connect(mapStateToProps, {
   fetchCountryList,
   fetchBagList,
   ProductADD,
+  fetchProductList,
+  ProductUpdate,
 })(ProductAdd);

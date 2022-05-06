@@ -150,82 +150,68 @@ class CategoryAdd extends React.Component {
             )}
             <div className="row">
               <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">
-                    Category Name
-                  </label>
-                  <div className="col-sm-9">
-                    <input
+                <div className="INP_FIELD">
+                  <label htmlFor="name">Category Name</label>
+                  <input
                       type="text"
-                      className="form-control"
+                      id='name'
                       name="name"
-                      placeholder="Category Name"
+                      placeholder="Enter Category Name"
                       onChange={this.handleChange}
                       value={this.state.name}
                     />
-                  </div>
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">
-                    Category Priority
-                  </label>
-                  <div className="col-sm-9">
-                    <input
+                <div className="INP_FIELD">
+                  <label htmlFor="priority">Category Priority</label>
+                  <input
                       type="text"
-                      className="form-control"
+                      id='priority'
                       name="priority"
-                      placeholder="Category Priority"
+                      placeholder="Enter Category Priority"
                       onChange={this.handleChange}
                       value={this.state.priority}
                     />
-                  </div>
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Description</label>
-                  <div className="col-sm-9">
-                    <textarea
+                <div className="INP_FIELD">
+                  <label htmlFor="description">Description</label>
+                  <textarea
                       rows={3}
-                      // cols={}
-                      className="form-control"
-                      onChange={this.handleChange}
+                      type="text"
+                      id='description'
                       name="description"
-                      id="description"
                       placeholder="Description"
+                      onChange={this.handleChange}
                       value={this.state.description}
                     />
-                  </div>
                 </div>
               </div>
+
               <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Product Department</label>
-                  <div className="col-sm-9">
-                    <select
-                      name="productDepartmentID"
-                      className="form-control"
-                      value={this.state.productDepartmentID}
-                      onChange={this.handleChange}
-                    >
-                      <option> - Select Department - </option>
-                      {this.state.product_department!==undefined?
-                        this.state.product_department.map(department=>(
-                      <option value={department.id}>{department.name}</option>
-                      )):null}
-                    </select>
-                  </div>
+                <div className="INP_FIELD">
+                  <label htmlFor="productDepartmentID">Product Department</label>
+                  <select
+                        name="productDepartmentID"
+                        value={this.state.productDepartmentID}
+                        onChange={this.handleChange}
+                      >
+                        <option> - Select Department - </option>
+                        {this.state.product_department!==undefined?
+                          this.state.product_department.map(department=>(
+                        <option value={department.id}>{department.name}</option>
+                        )):null}
+                      </select>
                 </div>
               </div>
+
               <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Status</label>
-                  <div className="col-sm-9">
-                    <select
+                <div className="INP_FIELD">
+                  <label htmlFor="status">Status</label>
+                  <select
                       name="status"
-                      className="form-control"
                       value={this.state.status}
                       onChange={this.handleChange}
                     >
@@ -233,17 +219,14 @@ class CategoryAdd extends React.Component {
                       <option value={true}>Active</option>
                       <option value={false}>InActive</option>
                     </select>
-                  </div>
                 </div>
               </div>
 
               <div className="col-md-6">
-                <div className="form-group row">
-                  <label className="col-sm-3 col-form-label">Visibility</label>
-                  <div className="col-sm-9">
-                    <select
+                <div className="INP_FIELD">
+                  <label htmlFor="visibility">Visibility</label>
+                  <select
                       name="visibility"
-                      className="form-control"
                       value={this.state.visibility}
                       onChange={this.handleChange}
                     >
@@ -251,26 +234,11 @@ class CategoryAdd extends React.Component {
                       <option value={true}>YES</option>
                       <option value={false}>NO</option>
                     </select>
-                  </div>
                 </div>
               </div>
-              
+        
             </div>
 
-            {/* <div className="row">
-              <div className="col-md-12">
-                <div className="form-group row">
-                  <label className="col-sm-2 col-form-label">Description</label>
-                  <div className="col-sm-10">
-                    <ReactQuill
-                      value={this.state.description}
-                      onChange={this.onHandleDescriptionChange}
-                      style={{ height: "200px", marginBottom: "5%" }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
             <div className="card-footer">
               <div className="row float-right p-1">

@@ -127,7 +127,10 @@ code {
   background: linear-gradient(90deg,#2e5919,#2e591986);
   border: none;
   color: aliceblue;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
   border-radius: 4px;
   padding: 0.3rem 0.8rem;
   margin-right: 1rem;

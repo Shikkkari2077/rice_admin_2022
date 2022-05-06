@@ -1,35 +1,35 @@
 import axios from "axios";
 import Constant from "../../Constant";
-import { FETCH_BRAND_LIST, 
-  FETCH_BRAND_ERROR, 
-  FETCH_BRAND_REQ ,
+import { FETCH_DELIVERY_TYPE_LIST, 
+  FETCH_DELIVERY_TYPE_ERROR, 
+  FETCH_DELIVERY_TYPE_REQ ,
 } from "../types";
 import Swal from 'sweetalert2'
-export const getBrandReq = () => {
+export const getDeliveryTypeReq = () => {
   return {
-    type: FETCH_BRAND_REQ,
+    type: FETCH_DELIVERY_TYPE_REQ,
   };
 };
 
-export const getBrandSucess = (Brand_list) => {
+export const getDeliveryTypeSucess = (DeliveryType_list) => {
   return {
-    type: FETCH_BRAND_LIST,
-    payload: Brand_list,
+    type: FETCH_DELIVERY_TYPE_LIST,
+    payload: DeliveryType_list,
   };
 };
 
-export const getBrandError = (error) => {
+export const getDeliveryTypeError = (error) => {
   return {
-    type: FETCH_BRAND_ERROR,
+    type: FETCH_DELIVERY_TYPE_ERROR,
     error: error,
   };
 };
 
-export const fetchBrandList = () => {
+export const fetchDeliveryTypeList = () => {
   return (dispatch) => {
-    dispatch(getBrandReq);
+    dispatch(getDeliveryTypeReq);
     axios
-      .get(Constant.getAPI() + "/brand/list", {
+      .get(Constant.getAPI() + "/deliveryType/list", {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
@@ -37,25 +37,25 @@ export const fetchBrandList = () => {
       })
       .then((res) => {
         // if (res.status === true) {
-          const Brand_list = res.data;
+          const DeliveryType_list = res.data;
           console.log(res.data)
-          dispatch(getBrandSucess(Brand_list));
+          dispatch(getDeliveryTypeSucess(DeliveryType_list));
         // }
       })
       .catch((err) => {
         const errMsg = err.message;
-        dispatch(getBrandError(errMsg));
+        dispatch(getDeliveryTypeError(errMsg));
       });
   };
 };
 
-export const BrandAdd = (data) => {
+export const DeliveryTypeAdd = (data) => {
   return (dispatch) => {
-    dispatch(getBrandReq);
+    dispatch(getDeliveryTypeReq);
   
         axios
           .post(
-            Constant.getAPI() + "/brand/add",
+            Constant.getAPI() + "/deliveryType/add",
             data,
             {
               headers: {
@@ -83,8 +83,8 @@ export const BrandAdd = (data) => {
                   confirmButtonText: "Ok",
                 }).then((value) => {
                   if (value) {
-                    dispatch(fetchBrandList())
-                    window.location.href = "#/brands";
+                    dispatch(fetchDeliveryTypeList())
+                    window.location.href = "#/delivery-type";
                   }
                 });
               }
@@ -93,18 +93,18 @@ export const BrandAdd = (data) => {
           .catch((err) => {
             const errMsg = err.message;
             console.log(err);
-            dispatch(getBrandError(err));
+            dispatch(getDeliveryTypeError(err));
           });
    
   };
 };
 
-export const updateBrand = (data) => {
+export const updateDeliveryType = (data) => {
   return (dispatch) => {
-    dispatch(getBrandReq);
+    dispatch(getDeliveryTypeReq);
         axios
-          .patch(
-            Constant.getAPI() + "/brand/edit",
+          .put(
+            Constant.getAPI() + "/deliveryType/edit",
             data,
             {
               headers: {
@@ -131,8 +131,8 @@ export const updateBrand = (data) => {
                   confirmButtonText: "Ok",
                 }).then((value) => {
                   if (value) {
-                    dispatch(fetchBrandList())
-                    window.location.href = "#/brands";
+                    dispatch(fetchDeliveryTypeList())
+                    window.location.href = "#/delivery-type";
                     //window.location.reload();
                   }
                 });
@@ -142,7 +142,7 @@ export const updateBrand = (data) => {
           .catch((err) => {
             const errMsg = err.message;
             console.log(err);
-            dispatch(getBrandError(err));
+            dispatch(getDeliveryTypeError(err));
           });
 
     

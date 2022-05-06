@@ -65,7 +65,7 @@ export const fetchSellerProductList = (datastart, datarange) => {
 
     axios
       .post(
-        Constant.getAPI() + "/sellerproduct/get",{},
+        Constant.getAPI() + "/sellerproduct/list",{},
         {
           headers: {
             "Content-Type": "application/json",
@@ -380,16 +380,7 @@ export const updateSellerProduct = (data,redirect) => {
         if (res.data.success === true) {
           const sellerProduct_list = res.data;
           
-          dispatch(fetchSellerProductAList(
-            redirect.range,
-            redirect.length,
-            redirect.seller,
-            redirect.cityId,
-            redirect.pincode,
-            redirect.state,
-            redirect.startDate,
-            redirect.endDate,
-            redirect.productSKU))
+          dispatch(fetchSellerProductList())
 
             
           Swal.fire({
@@ -405,6 +396,15 @@ export const updateSellerProduct = (data,redirect) => {
               //  window.location.reload();
             }
           });
+        }else{
+          Swal.fire({
+            title: "Something Went Wrong!",
+            icon: "error",
+            text: "",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ok",
+          })
         }
       })
       .catch((err) => {

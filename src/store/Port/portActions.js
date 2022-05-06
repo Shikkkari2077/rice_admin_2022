@@ -49,21 +49,14 @@ export const fetchPortList = (data) => {
   };
 };
 
-export const PortAdd = (name, description, MediumId,CategoryId,status,priority) => {
+export const PortAdd = (data) => {
   return (dispatch) => {
     dispatch(getPortReq);
   
         axios
           .post(
             Constant.getAPI() + "/portmaster/add",
-            {
-              name,
-              description,
-              //priority:priority,
-              MediumId,
-              CategoryId,
-              //status
-            },
+            data,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -91,7 +84,7 @@ export const PortAdd = (name, description, MediumId,CategoryId,status,priority) 
                 }).then((value) => {
                   if (value) {
                     dispatch(fetchPortList())
-                    window.location.href = "#/Port";
+                    window.location.href = "#/ports";
                   }
                 });
               }
@@ -107,12 +100,12 @@ export const PortAdd = (name, description, MediumId,CategoryId,status,priority) 
 };
 
 export const updatePort = (data) => {
- console.log(Mediaadd)
+//  console.log(Mediaadd)
   return (dispatch) => {
     dispatch(getPortReq);
         axios
-          .post(
-            Constant.getAPI() + "/Port/edit",
+          .patch(
+            Constant.getAPI() + "/portmaster/update",
             data,
             {
               headers: {
@@ -140,7 +133,7 @@ export const updatePort = (data) => {
                 }).then((value) => {
                   if (value) {
                     dispatch(fetchPortList())
-                    window.location.href = "#/Port/list";
+                    window.location.href = "#/ports";
                     //window.location.reload();
                   }
                 });

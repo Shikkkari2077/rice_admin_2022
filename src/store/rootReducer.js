@@ -36,6 +36,7 @@ import UOMReducer from './UOM/uomReducer';
 import brandReducer from './Brand/brandReducers';
 import bagReducer from './Bag/bagReducers';
 import portReducer from './Port/portReducer';
+import DeliveryTypeReducer from './DeliveryType/DeliveryTypeReducers';
 const rootReducer = combineReducers({
 	login: usersReducer,
 	category: categoryReducer,
@@ -72,5 +73,6 @@ const rootReducer = combineReducers({
 	Brands:brandReducer,
 	Bags:bagReducer,
 	Ports:portReducer,
+	DeliveryTypes:DeliveryTypeReducer,
 });
 export default rootReducer;

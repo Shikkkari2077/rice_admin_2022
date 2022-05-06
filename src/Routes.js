@@ -183,6 +183,17 @@ import UserEdit from "./components/SellerCustomerMapping/UserEdit.js";
 import CustomerIntrestedCategory from "./components/SellerCustomerMapping/CustomerIntrestedCategory.js";
 import DMSOrderList from "./components/DMS/DMSOrderList.js";
 import OtpRegistered from "./components/UserMaster/Customer/OtpRegistered.js";
+import BrandList from "./components/BrandMaster/BrandList.jsx";
+import BrandAddEdit from "./components/BrandMaster/BrandAddEdit.jsx";
+import UOMList from "./components/uomMaster/UOMList.jsx";
+import BagsList from "./components/BagsMaster/BagsList.jsx";
+import BagsAddEdit from "./components/BagsMaster/BagsAddEdit.jsx";
+import PortsList from "./components/PortMaster/PortsList.jsx";
+import PortAddEdit from "./components/PortMaster/PortAddEdit.jsx";
+import ProductDepartment from "./components/ProductMaster/ProductDepartment.jsx";
+import ProductDptAddEdit from "./components/ProductMaster/ProductDptAddEdit.jsx";
+import DeliveryTypesList from "./components/DeliveryTypeMaster/DeliveryTypesList.jsx";
+import DeliveryTypeAddEdit from "./components/DeliveryTypeMaster/DeliveryTypeAddEdit.jsx";
 
 class Routes extends Component {
   constructor(props) {
@@ -523,6 +534,72 @@ class Routes extends Component {
               path={"/subcategory/add/:subcategory_id?"}
               component={SubCategoryAddTab}
             />
+            <Route
+              exact
+              path={"/brands"}
+              component={BrandList}
+            />
+            <Route
+              exact
+              path={"/brand/add/:brand_id?"}
+              component={BrandAddEdit}
+            />
+              <Route
+              exact
+              path={"/UOMs"}
+              component={UOMList}
+            />
+            <Route
+              exact
+              path={"/UOM/add/:uom_id?"}
+              component={BrandAddEdit}
+            />
+             <Route
+              exact
+              path={"/bags"}
+              component={BagsList}
+            />
+            <Route
+              exact
+              path={"/bag/add/:bag_id?"}
+              component={BagsAddEdit}
+            />
+
+            <Route
+              exact
+              path={"/ports"}
+              component={PortsList}
+            />
+            <Route
+              exact
+              path={"/port/add/:port_id?"}
+              component={PortAddEdit}
+            />
+            
+            <Route
+              exact
+              path={"/product-Department"}
+              component={ProductDepartment}
+            />
+            <Route
+              exact
+              path={"/product-Department/add/:department_id?"}
+              component={ProductDptAddEdit}
+            />
+
+            <Route
+              exact
+              path={"/delivery-type"}
+              component={DeliveryTypesList}
+            />
+            <Route
+              exact
+              path={"/delivery-type/add/:deliveryType_id?"}
+              component={DeliveryTypeAddEdit}
+            />
+
+
+
               <Route
                   exact
                   path={"/delivery-delayed"}

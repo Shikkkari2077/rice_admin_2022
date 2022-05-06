@@ -17,10 +17,8 @@ import AlertDialog from "../../common/DownloadOption";
 import { withStyles } from "@material-ui/core/styles";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import {
- 
   FormControl,
   Switch,
-
   Button,
 } from "@material-ui/core";
 class Checkbox extends React.Component {
@@ -781,31 +779,30 @@ class ProductList extends React.Component {
       //   },
       // },
 
-      // {
-      //   name: "id",
-      //   label: "Action",
-      //   options: {
-      //     display:localStorage.getItem('ProductEdit')==true?true:false,
-      //     filter: false,
-      //     sort: false,
-      //     customBodyRender: (id, tableMeta) => {
-      //       return (
-      //         <div>
-      //           <Link
-      //             to={"/products/add/" + id}
-      //             className="m-r-15 text-muted"
-      //             data-toggle="tooltip"
-      //             data-placement="top"
-      //             title=""
-      //             data-original-title="Edit"
-      //           >
-      //             <i className="f-20 icofont icofont-ui-edit text-custom"></i>
-      //           </Link>
-      //         </div>
-      //       );
-      //     },
-      //   },
-      // },
+      {
+        name: "id",
+        label: "Action",
+        options: {
+          filter: false,
+          sort: false,
+          customBodyRender: (id, tableMeta) => {
+            return (
+              <div>
+                <Link
+                  to={"/products/add/" + id}
+                  className="m-r-15 text-muted"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title=""
+                  data-original-title="Edit"
+                >
+                  <i className="f-20 icofont icofont-ui-edit text-custom"></i>
+                </Link>
+              </div>
+            );
+          },
+        },
+      },
     ];
     const options = {
       filter: false,

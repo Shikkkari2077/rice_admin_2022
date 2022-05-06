@@ -79,6 +79,32 @@ export const fetchProductList = (range,recordLimit,productSKU,productName) => {
   };
 };
 
+export const ProductUpdate = (data,productId) => (dispatch) => {
+  dispatch(getproductReq);
+  axios.patch(Constant.getAPI() + `/product/edit/${productId}`,data,{
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('superadmin_auth')}`,
+    },
+  }).then(res=>{
+    // console.log('Update Response',res.data);
+    if(res.data.success){
+      Swal.fire({
+        title: "Updated Successfully",
+        icon: "success",
+        text: "",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ok",
+      })
+      window.location.href='#/products'
+    }
+  }).catch((err) => {
+    const errMsg = err.message;
+    dispatch(getproductError(errMsg));
+  });
+}
+
 export const fetchProductDepartmentList = () => {
   
   return (dispatch) => {
@@ -105,6 +131,106 @@ export const fetchProductDepartmentList = () => {
         const errMsg = err.message;
         dispatch(getproductError(errMsg));
       });
+  };
+};
+
+export const AddProductDepartment = (data) => {
+  return (dispatch) => {
+    dispatch(getproductReq);
+  
+        axios
+          .post(
+            Constant.getAPI() + "/productdepartment/add",
+            data,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(
+                  "superadmin_auth"
+                )}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            console.log(res.status);
+            if (res.status === 200) {
+              const category_res = res.data;
+              // dispatch(addCategorySucess(category_res));
+              // }
+              if (category_res.success === true) {
+                Swal.fire({
+                  title: "Added Successfully",
+                  icon: "success",
+                  text: "",
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ok",
+                }).then((value) => {
+                  if (value) {
+                    dispatch(fetchProductList())
+                    window.location.href = "#/product-Department";
+                  }
+                });
+              }
+            }
+          })
+          .catch((err) => {
+            const errMsg = err.message;
+            console.log(err);
+            dispatch(getproductError(err));
+          });
+   
+  };
+};
+
+export const UpdateProductDepartment = (data) => {
+  return (dispatch) => {
+    dispatch(getproductReq);
+        axios
+          .patch(
+            Constant.getAPI() + "/productdepartment/update",
+            data,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem(
+                  "superadmin_auth"
+                )}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            console.log(res.status);
+            if (res.status === 200) {
+              const category_res = res.data;
+         
+              if (category_res.success === true) {
+                Swal.fire({
+                  title: "Updated Successfully",
+                  icon: "success",
+                  text: "",
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ok",
+                }).then((value) => {
+                  if (value) {
+                    dispatch(fetchProductList())
+                    window.location.href = "#/product-Department";
+                    //window.location.reload();
+                  }
+                });
+              }
+            }
+          })
+          .catch((err) => {
+            const errMsg = err.message;
+            console.log(err);
+            dispatch(getproductError(err));
+          });
+
+    
   };
 };
 
@@ -169,7 +295,7 @@ export const ProductADD = (data) => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Ok",
           })
-        
+          window.location.href='#/products'
         }
       })
       .catch((err) => {

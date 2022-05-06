@@ -49,21 +49,14 @@ export const fetchBagList = () => {
   };
 };
 
-export const BagAdd = (name, description, MediumId,CategoryId,status,priority) => {
+export const BagAdd = (data) => {
   return (dispatch) => {
     dispatch(getBagReq);
   
         axios
           .post(
             Constant.getAPI() + "/bag/add",
-            {
-              name,
-              description,
-              //priority:priority,
-              MediumId,
-              CategoryId,
-              //status
-            },
+            data,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -91,7 +84,7 @@ export const BagAdd = (name, description, MediumId,CategoryId,status,priority) =
                 }).then((value) => {
                   if (value) {
                     dispatch(fetchBagList())
-                    window.location.href = "#/Bag";
+                    window.location.href = "#/bags";
                   }
                 });
               }
@@ -110,7 +103,7 @@ export const updateBag = (data) => {
   return (dispatch) => {
     dispatch(getBagReq);
         axios
-          .post(
+          .patch(
             Constant.getAPI() + "/bag/edit",
             data,
             {
@@ -139,7 +132,7 @@ export const updateBag = (data) => {
                 }).then((value) => {
                   if (value) {
                     dispatch(fetchBagList())
-                    window.location.href = "#/Bag/list";
+                    window.location.href = "#/bags";
                     //window.location.reload();
                   }
                 });

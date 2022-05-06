@@ -347,6 +347,54 @@ class SideNavBar extends React.Component {
                     <span className="pcoded-mtext">Category Master</span>
                   </Link>
                 </li>
+                <li className=" ">
+                  <Link to="/brands">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">Brand Master</span>
+                  </Link>
+                </li>
+                <li className=" ">
+                  <Link to="/UOMs">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">UOM Master</span>
+                  </Link>
+                </li>
+                <li className=" ">
+                  <Link to="/bags">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">Bags Master</span>
+                  </Link>
+                </li>
+                <li className=" ">
+                  <Link to="/ports">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">Port Master</span>
+                  </Link>
+                </li>
+                <li className=" ">
+                  <Link to="/product-Department">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">Product Department</span>
+                  </Link>
+                </li>
+                <li className=" ">
+                  <Link to="/delivery-type">
+                    <span className="pcoded-micon">
+                      <i className="feather icon-grid"></i>
+                    </span>
+                    <span className="pcoded-mtext">Delivery Type Master</span>
+                  </Link>
+                </li>
               </>
             :null}
            {localStorage.getItem('SellerDetails')=='true'?
