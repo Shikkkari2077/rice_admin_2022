@@ -107,7 +107,7 @@ export const UOMAdd = (name, description, MediumId,CategoryId,status,priority) =
 };
 
 export const updateUOM = (data) => {
- console.log(Mediaadd)
+//  console.log(Mediaadd)
   return (dispatch) => {
     dispatch(getUOMReq);
         axios
